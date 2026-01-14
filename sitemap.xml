@@ -4,27 +4,49 @@
   <!-- Página inicial -->
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
 
   <!-- Páginas institucionais -->
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/sobre.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/termos.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/privacidade.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Páginas de erros HTML -->
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/erros/img-sem-alt.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/erros/title-ausente.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://joaoclaudiano.github.io/html-teste/erros/meta-description.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+
 </urlset>
