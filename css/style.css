@@ -41,6 +41,20 @@ body {
   background: var(--border);
 }
 
+.dark-toggle {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--header-text);
+  border: 1px solid var(--header-text);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dark-toggle:hover {
+  opacity: 0.8;
+}
+
 body.dark {
   --bg: #121212;
   --text: #e0e0e0;
