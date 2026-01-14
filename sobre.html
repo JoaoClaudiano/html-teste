@@ -1,22 +1,234 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sobre o Testador de HTML Online</title>
+<meta charset="UTF-8">
+<title>Sobre o Testador de HTML Online</title>
+<meta name="description" content="Conheça o Testador de HTML Online, uma ferramenta gratuita para visualizar, depurar e melhorar a qualidade do código HTML.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Conheça o Testador de HTML Online, uma ferramenta gratuita para visualizar, depurar e melhorar a qualidade do código HTML." />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Ícone -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔍</text></svg>">
 
-  <!-- SEO -->
-  <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/sobre.html" />
-  <meta name="robots" content="index, follow" />
+<!-- Fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+<!-- CSS interno -->
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --secondary: #7209b7;
+    --accent: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray-light: #e9ecef;
+    --gray-dark: #495057;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --transition: all 0.3s ease;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    line-height:1.6;
+    color: var(--dark);
+    background-color: #f9fafc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  body.dark {
+    background:#121212;
+    color:#e0e0e0;
+  }
+
+  a { color:var(--primary); text-decoration:none; transition: var(--transition);}
+  a:hover { color:var(--primary-dark); text-decoration:underline;}
+
+  /* Header */
+  header.top {
+    background: linear-gradient(135deg,var(--primary) 0%, var(--secondary) 100%);
+    color:white;
+    padding:3rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    position:relative;
+    text-align:center;
+  }
+
+  header.top h1 {
+    font-size:2.5rem;
+    font-weight:700;
+    margin:0;
+    flex:1;
+  }
+
+  header.top p {
+    width:100%;
+    text-align:center;
+    margin-top:0.5rem;
+    font-weight:300;
+    opacity:0.9;
+    max-width:700px;
+  }
+
+  .top-buttons {
+    display:flex;
+    gap:10px;
+    flex-shrink:0;
+  }
+
+  .top-buttons a,
+  .top-buttons button {
+    padding:8px 14px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    font-weight:500;
+    transition: var(--transition);
+  }
+
+  .top-buttons a {
+    background:var(--primary);
+    color:white;
+    text-decoration:none;
+  }
+  .top-buttons a:hover { background:var(--primary-dark); }
+  .top-buttons button {
+    background:transparent;
+    border:1px solid white;
+    color:white;
+  }
+  .top-buttons button:hover {
+    background:white; color:var(--dark);
+  }
+
+  /* Container */
+  .container {
+    max-width:900px;
+    margin:2rem auto;
+    padding:0 1.5rem;
+    flex-grow:1;
+  }
+
+  section {
+    background:white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding:2rem;
+    margin-bottom:2rem;
+    border-left:4px solid var(--primary);
+    transition: var(--transition);
+  }
+  section:hover {
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  h2 {
+    font-size:1.6rem;
+    color:var(--primary);
+    margin-bottom:1rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+  }
+  h2::before {
+    content:"";
+    display:inline-block;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background-color:var(--accent);
+    margin-right:10px;
+  }
+
+  p { margin-bottom:1.2rem; color:var(--gray-dark); }
+  ul { padding-left:1.5rem; margin-bottom:1.2rem; }
+  li { margin-bottom:0.75rem; position:relative; padding-left:0.5rem; }
+  li::marker { color:var(--primary); }
+  code {
+    background-color:var(--gray-light);
+    padding:0.2rem 0.5rem;
+    border-radius:4px;
+    font-family:'Courier New', monospace;
+    color:var(--secondary);
+    font-weight:500;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    background:white;
+    border-radius:var(--border-radius);
+    box-shadow:var(--box-shadow);
+    padding:1.5rem;
+    margin-top:2rem;
+    text-align:center;
+  }
+  .breadcrumb a {
+    display:inline-flex;
+    align-items:center;
+    font-weight:500;
+    padding:0.75rem 1.5rem;
+    background:var(--primary);
+    color:white;
+    border-radius:var(--border-radius);
+    transition: var(--transition);
+  }
+  .breadcrumb a:hover {
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+    box-shadow:0 6px 12px rgba(67,97,238,0.3);
+  }
+
+  /* Footer */
+  footer.footer {
+    background-color: var(--dark);
+    color:white;
+    text-align:center;
+    padding:2rem 1.5rem;
+    margin-top:3rem;
+  }
+  footer.footer p { opacity:0.8; margin-bottom:0.5rem; }
+
+  /* Subir ao topo */
+  #topBtn {
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    z-index:1000;
+    background:var(--primary);
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:50%;
+    font-size:1.5rem;
+    cursor:pointer;
+    display:none;
+    transition: var(--transition);
+  }
+  #topBtn:hover { background:var(--primary-dark); }
+
+  /* Responsividade */
+  @media (max-width:768px){
+    header.top { flex-direction:column; }
+    .top-buttons { margin-bottom:10px; justify-content:center; width:100%; }
+    header.top h1 { margin:0.5rem 0; }
+  }
+</style>
 </head>
 <body>
 
 <header class="top">
+  <div class="top-buttons">
+    <a href="/html-teste/">Página Inicial</a>
+    <button id="darkToggle" aria-label="Alternar modo escuro">🌙</button>
+  </div>
   <h1>Sobre o Testador de HTML Online</h1>
   <p>Uma ferramenta simples para aprender, testar e melhorar código HTML</p>
 </header>
@@ -36,23 +248,21 @@
   <section>
     <h2>Para quem é esta ferramenta?</h2>
     <ul>
-      <li>Estudantes de programação e desenvolvimento web</li>
-      <li>Iniciantes em HTML e CSS</li>
-      <li>Desenvolvedores que desejam validar rapidamente um trecho de código</li>
-      <li>Professores e educadores da área de tecnologia</li>
+      <li>🎓 Estudantes de programação e desenvolvimento web</li>
+      <li>🚀 Iniciantes em HTML e CSS</li>
+      <li>🔧 Desenvolvedores que desejam validar rapidamente um trecho de código</li>
+      <li>👨‍🏫 Professores e educadores da área de tecnologia</li>
     </ul>
   </section>
 
   <section>
     <h2>O que analisamos?</h2>
-    <p>
-      A análise realizada pelo site é automatizada e educativa, abordando pontos como:
-    </p>
     <ul>
       <li>Ausência de tags obrigatórias (<code>&lt;title&gt;</code>, meta description)</li>
       <li>Problemas de acessibilidade (imagens sem <code>alt</code>)</li>
       <li>Boas práticas de estrutura HTML</li>
       <li>Organização e legibilidade do código</li>
+      <li>Compatibilidade com dispositivos móveis</li>
     </ul>
   </section>
 
@@ -61,18 +271,15 @@
     <p>
       Não. Esta ferramenta tem caráter <strong>educativo e prático</strong>.
       Para validações formais, recomenda-se o uso do
-      <a href="https://validator.w3.org/" target="_blank" rel="noopener">
-        Validador Oficial do W3C
-      </a>.
+      <a href="https://validator.w3.org/" target="_blank" rel="noopener">Validador Oficial do W3C</a>.
     </p>
   </section>
 
   <section>
     <h2>Como o site é mantido?</h2>
     <p>
-      O site é mantido como um projeto independente e pode exibir anúncios
-      de forma discreta para custear sua manutenção, sempre preservando
-      a experiência do usuário.
+      O site é mantido como um projeto independente e pode exibir anúncios discretos
+      para custear a manutenção.
     </p>
   </section>
 
@@ -84,7 +291,41 @@
 
 <footer class="footer">
   <p>Testador de HTML Online • Projeto educacional • © 2026</p>
+    <p>Desenvolvido com ❤️ para a comunidade de desenvolvimento web</p>
 </footer>
+
+<button id="topBtn" title="Subir ao topo">↑</button>
+
+<script>
+  // Dark mode
+  const toggle = document.getElementById("darkToggle");
+  if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark");
+    toggle.textContent="☀️";
+  }
+  toggle.addEventListener("click",()=>{
+    document.body.classList.toggle("dark");
+    if(document.body.classList.contains("dark")){
+      localStorage.setItem("theme","dark");
+      toggle.textContent="☀️";
+    } else {
+      localStorage.setItem("theme","light");
+      toggle.textContent="🌙";
+    }
+  });
+
+  // Subir ao topo
+  const topBtn = document.getElementById("topBtn");
+  window.onscroll = function(){ scrollFunction(); };
+  function scrollFunction(){
+    if(document.body.scrollTop>200 || document.documentElement.scrollTop>200){
+      topBtn.style.display="block";
+    } else {
+      topBtn.style.display="none";
+    }
+  }
+  topBtn.addEventListener("click",()=>{ window.scrollTo({top:0,behavior:'smooth'}); });
+</script>
 
 </body>
 </html>
