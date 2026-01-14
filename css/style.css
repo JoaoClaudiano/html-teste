@@ -138,6 +138,29 @@ body {
   background: #ddd;
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 16px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.ads {
+  min-height: 250px;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ads {
+    display: none;
+  }
+}
+
 /* 📱 Mobile */
 @media (max-width: 900px) {
   .layout {
@@ -149,3 +172,5 @@ body {
     text-align: center;
   }
 }
+
+
