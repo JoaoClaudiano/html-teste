@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const baseUrl = "https://joaoclaudiano.github.io";
+const baseUrl = "https://joaoclaudiano.github.io/html-teste/";
 
 const pages = [];
 
