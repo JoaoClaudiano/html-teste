@@ -1,317 +1,234 @@
-// js/analyze.js - VERSÃO COMPLETA E CORRIGIDA
-
+// js/analyze.js
 function analyzeHTML() {
-    const htmlInput = document.getElementById('htmlInput').value;
-    const previewFrame = document.getElementById('previewFrame');
-    const resultsDiv = document.getElementById('results');
+    const html = document.getElementById('htmlInput').value;
+    const preview = document.getElementById('previewFrame');
+    const resultsContainer = document.getElementById('resultsContainer');
     
-    // Clear previous results
-    resultsDiv.innerHTML = '';
-    
-    // Update preview iframe
-    if (htmlInput.trim()) {
-        previewFrame.srcdoc = htmlInput;
+    // Atualizar preview
+    if (html.trim()) {
+        preview.srcdoc = html;
     } else {
-        previewFrame.srcdoc = '<p style="padding:20px;color:#666;">Digite HTML para visualizar</p>';
+        preview.srcdoc = '<div style="padding:20px;color:#666;">Nenhum código para visualizar</div>';
     }
     
-    // Run all checks
-    const checks = [
-        checkDoctype,
-        checkHtmlLang,
-        checkHead,
-        checkTitle,
-        checkMetaDescription,
-        checkMetaViewport,
-        checkImagesAlt,
-        checkSemanticTags,
-        checkObsoleteTags,
-        checkExternalLinks,
-        checkAriaLabels
-    ];
+    // Análise
+    const analysis = performAnalysis(html);
+    displayResults(analysis);
     
+    // Salvar no histórico
+    saveToHistory(html, analysis.score);
+}
+
+function performAnalysis(html) {
     let score = 100;
-    const results = [];
+    const issues = [];
     
-    checks.forEach(check => {
-        const result = check(htmlInput);
-        if (result) {
-            score -= result.penalty || 0;
-            results.push(result);
-        }
-    });
-    
-    // Ensure score is not negative
-    score = Math.max(0, Math.min(100, score));
-    
-    // Display results
-    displayResults(results, score);
-}
-
-// Individual check functions
-function checkDoctype(html) {
+    // 1. DOCTYPE
     if (!html.includes('<!DOCTYPE')) {
-        return {
+        score -= 15;
+        issues.push({
             type: 'error',
-            title: 'DOCTYPE ausente',
+            title: 'DOCTYPE Ausente',
             message: 'Adicione <!DOCTYPE html> no início do documento',
-            penalty: 15
-        };
+            fix: '<!DOCTYPE html>'
+        });
     }
-    return null;
-}
-
-function checkHtmlLang(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    if (!doc.documentElement.hasAttribute('lang')) {
-        return {
-            type: 'error',
-            title: 'Idioma não definido',
-            message: 'Adicione lang="pt-BR" ou outro idioma na tag <html>',
-            penalty: 10
-        };
-    }
-    return null;
-}
-
-function checkHead(html) {
-    if (!html.includes('<head>')) {
-        return {
-            type: 'error',
-            title: 'Tag HEAD ausente',
-            message: 'O documento deve conter a tag <head>',
-            penalty: 15
-        };
-    }
-    return null;
-}
-
-function checkTitle(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const title = doc.querySelector('title');
     
-    if (!title || !title.textContent.trim()) {
-        return {
+    // 2. Charset
+    if (!html.includes('charset="UTF-8"') && !html.includes("charset='UTF-8'")) {
+        score -= 10;
+        issues.push({
+            type: 'error',
+            title: 'Charset não definido',
+            message: 'Adicione <meta charset="UTF-8">',
+            fix: '<meta charset="UTF-8">'
+        });
+    }
+    
+    // 3. Viewport
+    if (!html.includes('viewport')) {
+        score -= 8;
+        issues.push({
+            type: 'warning',
+            title: 'Viewport ausente',
+            message: 'Importante para mobile: <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+            fix: '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+        });
+    }
+    
+    // 4. Title
+    const titleMatch = html.match(/<title>(.*?)<\/title>/i);
+    if (!titleMatch) {
+        score -= 12;
+        issues.push({
             type: 'error',
             title: 'Título ausente',
-            message: 'Adicione <title>Título da Página</title> dentro do <head>',
-            penalty: 12
-        };
-    }
-    return null;
-}
-
-function checkMetaDescription(html) {
-    if (!html.includes('name="description"')) {
-        return {
-            type: 'warn',
-            title: 'Meta description ausente',
-            message: 'Adicione: <meta name="description" content="Descrição da página">',
-            penalty: 8
-        };
-    }
-    return null;
-}
-
-function checkMetaViewport(html) {
-    if (!html.includes('name="viewport"')) {
-        return {
-            type: 'warn',
-            title: 'Viewport não configurado',
-            message: 'Adicione: <meta name="viewport" content="width=device-width, initial-scale=1.0">',
-            penalty: 8
-        };
-    }
-    return null;
-}
-
-function checkImagesAlt(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const images = doc.querySelectorAll('img');
-    const imagesWithoutAlt = [];
-    
-    images.forEach(img => {
-        if (!img.hasAttribute('alt')) {
-            imagesWithoutAlt.push(img.src || 'imagem sem src');
-        }
-    });
-    
-    if (imagesWithoutAlt.length > 0) {
-        const penalty = Math.min(imagesWithoutAlt.length * 3, 20);
-        return {
-            type: 'error',
-            title: `Imagens sem ALT (${imagesWithoutAlt.length})`,
-            message: 'Adicione atributo alt descritivo às imagens: ' + imagesWithoutAlt.join(', '),
-            penalty: penalty
-        };
-    }
-    return null;
-}
-
-function checkSemanticTags(html) {
-    const semanticTags = ['header', 'nav', 'main', 'section', 'article', 'aside', 'footer', 'figure', 'figcaption'];
-    const foundTags = [];
-    
-    semanticTags.forEach(tag => {
-        if (html.includes(`<${tag}`)) {
-            foundTags.push(tag);
-        }
-    });
-    
-    if (foundTags.length === 0) {
-        return {
-            type: 'warn',
-            title: 'Poucas tags semânticas',
-            message: 'Considere usar tags semânticas como <header>, <nav>, <main>, <section>, etc.',
-            penalty: 5
-        };
-    }
-    return null;
-}
-
-function checkObsoleteTags(html) {
-    const obsoleteTags = ['<font', '<center', '<marquee', '<blink', '<applet', '<basefont', '<big', '<dir', '<isindex'];
-    const foundTags = [];
-    
-    obsoleteTags.forEach(tag => {
-        if (html.includes(tag)) {
-            foundTags.push(tag.replace('<', ''));
-        }
-    });
-    
-    if (foundTags.length > 0) {
-        return {
-            type: 'error',
-            title: 'Tags obsoletas encontradas',
-            message: 'Evite usar tags obsoletas: ' + foundTags.join(', '),
-            penalty: 10
-        };
-    }
-    return null;
-}
-
-function checkExternalLinks(html) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const externalLinks = doc.querySelectorAll('a[target="_blank"]');
-    const unsafeLinks = [];
-    
-    externalLinks.forEach(link => {
-        if (!link.getAttribute('rel') || !link.getAttribute('rel').includes('noopener')) {
-            unsafeLinks.push(link.href || link.textContent);
-        }
-    });
-    
-    if (unsafeLinks.length > 0) {
-        return {
-            type: 'warn',
-            title: 'Links externos inseguros',
-            message: 'Adicione rel="noopener noreferrer" em links com target="_blank"',
-            penalty: 5
-        };
-    }
-    return null;
-}
-
-function checkAriaLabels(html) {
-    const interactiveElements = ['button', 'a[href]', 'input', 'select', 'textarea'];
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    let missingLabels = 0;
-    
-    interactiveElements.forEach(selector => {
-        const elements = doc.querySelectorAll(selector);
-        elements.forEach(el => {
-            if (!el.hasAttribute('aria-label') && 
-                !el.getAttribute('aria-labelledby') &&
-                !el.textContent.trim() &&
-                !el.getAttribute('title')) {
-                missingLabels++;
-            }
+            message: 'Adicione <title>Sua Página</title>',
+            fix: '<title>Sua Página</title>'
         });
+    } else if (titleMatch[1].trim().length < 5) {
+        score -= 5;
+        issues.push({
+            type: 'warning',
+            title: 'Título muito curto',
+            message: 'O título deve ter pelo menos 5 caracteres',
+            fix: '<title>Título Descritivo da Página</title>'
+        });
+    }
+    
+    // 5. Meta description
+    if (!html.includes('name="description"')) {
+        score -= 8;
+        issues.push({
+            type: 'warning',
+            title: 'Meta description ausente',
+            message: 'Importante para SEO: <meta name="description" content="Descrição da página">',
+            fix: '<meta name="description" content="Descrição da página">'
+        });
+    }
+    
+    // 6. Imagens sem ALT
+    const imgRegex = /<img[^>]*>/g;
+    const images = html.match(imgRegex) || [];
+    images.forEach((img, index) => {
+        if (!img.includes('alt=')) {
+            score -= 6;
+            issues.push({
+                type: 'error',
+                title: `Imagem ${index + 1} sem ALT`,
+                message: 'Adicione atributo alt descritivo',
+                fix: 'alt="descrição da imagem"'
+            });
+        }
     });
     
-    if (missingLabels > 0) {
-        return {
-            type: 'warn',
-            title: 'Elementos interativos sem rótulo',
-            message: `${missingLabels} elementos precisam de aria-label ou texto visível`,
-            penalty: Math.min(missingLabels * 2, 10)
-        };
+    // 7. Tags semânticas
+    const semanticTags = ['<header', '<nav', '<main', '<article', '<section', '<aside', '<footer'];
+    const hasSemantic = semanticTags.some(tag => html.includes(tag));
+    
+    if (!hasSemantic && html.includes('<div')) {
+        score -= 5;
+        issues.push({
+            type: 'warning',
+            title: 'Poucas tags semânticas',
+            message: 'Use tags semânticas como header, nav, main, footer',
+            fix: '<header>, <nav>, <main>, <footer>'
+        });
     }
-    return null;
+    
+    // 8. Links externos sem rel
+    const externalLinks = html.match(/<a[^>]*href=["'][^"']*["'][^>]*>/g) || [];
+    externalLinks.forEach(link => {
+        if (link.includes('http') && !link.includes('rel=')) {
+            score -= 4;
+            issues.push({
+                type: 'warning',
+                title: 'Link externo sem rel',
+                message: 'Para links externos: rel="noopener noreferrer"',
+                fix: 'rel="noopener noreferrer"'
+            });
+        }
+    });
+    
+    // 9. Lang attribute
+    if (!html.includes('lang=')) {
+        score -= 5;
+        issues.push({
+            type: 'warning',
+            title: 'Idioma não definido',
+            message: 'Adicione lang="pt-BR" na tag html',
+            fix: '<html lang="pt-BR">'
+        });
+    }
+    
+    // Garantir score entre 0 e 100
+    score = Math.max(0, Math.min(100, score));
+    
+    return { score, issues };
 }
 
-function displayResults(results, score) {
-    const container = document.getElementById('results');
+function displayResults(analysis) {
+    const container = document.getElementById('resultsContainer');
+    const { score, issues } = analysis;
     
-    // Create score card
-    const scoreCard = document.createElement('div');
-    scoreCard.className = 'card';
-    
-    let scoreClass = 'ok';
-    let scoreText = 'Excelente';
-    
-    if (score < 70) {
-        scoreClass = 'warn';
-        scoreText = 'Regular';
-    }
-    if (score < 50) {
-        scoreClass = 'error';
-        scoreText = 'Precisa melhorar';
-    }
-    
-    scoreCard.classList.add(scoreClass);
-    scoreCard.innerHTML = `
-        <h3>Pontuação: ${score}/100</h3>
-        <p><strong>${scoreText}</strong></p>
-        <p>${results.length} ${results.length === 1 ? 'problema encontrado' : 'problemas encontrados'}</p>
+    let html = `
+        <div class="result-item ${score >= 90 ? 'success' : score >= 70 ? 'warning' : 'error'}">
+            <h3>Pontuação: ${score}/100</h3>
+            <p>${issues.length} ${issues.length === 1 ? 'problema encontrado' : 'problemas encontrados'}</p>
+        </div>
     `;
     
-    container.appendChild(scoreCard);
-    
-    // Display each result
-    results.forEach(result => {
-        const resultCard = document.createElement('div');
-        resultCard.className = `card ${result.type}`;
-        resultCard.innerHTML = `
-            <h3>${result.title}</h3>
-            <p>${result.message}</p>
-            <small>Penalidade: -${result.penalty} pontos</small>
+    if (issues.length === 0) {
+        html += `
+            <div class="result-item success">
+                <h3>✅ HTML Excelente!</h3>
+                <p>Seu código está bem estruturado e segue as melhores práticas.</p>
+            </div>
         `;
-        container.appendChild(resultCard);
-    });
-    
-    if (results.length === 0) {
-        const successCard = document.createElement('div');
-        successCard.className = 'card ok';
-        successCard.innerHTML = `
-            <h3>✅ HTML válido!</h3>
-            <p>Nenhum problema encontrado. Seu código está bem estruturado.</p>
-        `;
-        container.appendChild(successCard);
-    }
-}
-
-// Dark mode and other utilities (keep your existing code)
-// ... seu código existente para dark mode, clearEditor, openPreview, etc.
-
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Load saved HTML
-    const savedHTML = localStorage.getItem('htmlCode');
-    if (savedHTML) {
-        document.getElementById('htmlInput').value = savedHTML;
-    }
-    
-    // Auto-save
-    const htmlInput = document.getElementById('htmlInput');
-    if (htmlInput) {
-        htmlInput.addEventListener('input', function() {
-            localStorage.setItem('htmlCode', this.value);
+    } else {
+        issues.forEach(issue => {
+            html += `
+                <div class="result-item ${issue.type}">
+                    <h3>${issue.title}</h3>
+                    <p>${issue.message}</p>
+                    <p><strong>Solução:</strong> ${issue.fix}</p>
+                </div>
+            `;
         });
     }
-});
+    
+    container.innerHTML = html;
+}
+
+function saveToHistory(html, score) {
+    const history = JSON.parse(localStorage.getItem('analysisHistory') || '[]');
+    history.unshift({
+        html: html.substring(0, 100) + '...',
+        score,
+        date: new Date().toISOString()
+    });
+    
+    // Manter apenas últimos 10
+    if (history.length > 10) history.pop();
+    
+    localStorage.setItem('analysisHistory', JSON.stringify(history));
+}
+
+// Funções auxiliares
+function clearEditor() {
+    document.getElementById('htmlInput').value = '';
+    document.getElementById('previewFrame').srcdoc = '';
+    document.getElementById('resultsContainer').innerHTML = `
+        <div class="result-placeholder">
+            <p>Execute a análise para ver os resultados aqui</p>
+        </div>
+    `;
+    localStorage.removeItem('htmlCode');
+}
+
+function openFullscreen() {
+    const html = document.getElementById('htmlInput').value;
+    if (!html.trim()) {
+        alert('Cole algum código HTML primeiro');
+        return;
+    }
+    
+    const newWindow = window.open('', '_blank');
+    newWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Preview - Testador HTML</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                body { margin: 0; padding: 20px; }
+                img { max-width: 100%; }
+            </style>
+        </head>
+        <body>
+            ${html}
+        </body>
+        </html>
+    `);
+    newWindow.document.close();
+}
