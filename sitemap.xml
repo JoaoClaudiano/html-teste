@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Página inicial -->
   <url>
-    <loc>https://joaoclaudiano.github.io/html-teste//</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://joaoclaudiano.github.io/html-teste/</loc>
+  </url>
+
+  <!-- Páginas institucionais -->
+  <url>
+    <loc>https://joaoclaudiano.github.io/html-teste/sobre.html</loc>
   </url>
   <url>
-    <loc>https://joaoclaudiano.github.io/html-teste//erros/erro-img-sem-alt</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://joaoclaudiano.github.io/html-teste/termos.html</loc>
   </url>
+  <url>
+    <loc>https://joaoclaudiano.github.io/html-teste/privacidade.html</loc>
+  </url>
+
+  <!-- Páginas de erros HTML -->
+  <url>
+    <loc>https://joaoclaudiano.github.io/html-teste/erros/img-sem-alt.html</loc>
+  </url>
+  <url>
+    <loc>https://joaoclaudiano.github.io/html-teste/erros/title-ausente.html</loc>
+  </url>
+  <url>
+    <loc>https://joaoclaudiano.github.io/html-teste/erros/meta-description.html</loc>
+  </url>
+
 </urlset>
