@@ -1,6 +1,36 @@
+// generate-errors.js CORRIGIDO
 const fs = require("fs");
-const errors = JSON.parse(fs.readFileSync("errors.json", "utf8"));
-const template = fs.readFileSync("data/erros.json", "utf8");
+
+// Ler dados dos erros (nome corrigido)
+const errors = JSON.parse(fs.readFileSync("erros.json", "utf8"));
+
+// Template HTML básico
+const template = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>{{TITLE}} — Testador de HTML</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; line-height: 1.6; }
+    h1 { color: #f72585; }
+    pre { background: #f5f5f5; padding: 1rem; border-radius: 6px; }
+    .back-link { display: inline-block; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="../index.html">← Voltar para o Testador</a>
+  <h1>{{TITLE}}</h1>
+  <p><strong>Problema:</strong> {{PROBLEM}}</p>
+  <p><strong>Impacto:</strong></p>
+  <ul>{{IMPACT_LIST}}</ul>
+  <p><strong>Solução:</strong></p>
+  <pre>{{SOLUTION}}</pre>
+</body>
+</html>
+`;
 
 if (!fs.existsSync("erros")) {
   fs.mkdirSync("erros");
@@ -9,12 +39,11 @@ if (!fs.existsSync("erros")) {
 errors.forEach(err => {
   const impactList = err.impact
     .map(item => `<li>${item}</li>`)
-    .join("");
+    .join('');
 
   let page = template
     .replace(/{{TITLE}}/g, err.title)
     .replace(/{{DESCRIPTION}}/g, err.description)
-    .replace(/{{SLUG}}/g, err.slug)
     .replace(/{{PROBLEM}}/g, err.problem)
     .replace(/{{IMPACT_LIST}}/g, impactList)
     .replace(/{{SOLUTION}}/g, err.solution);
@@ -22,4 +51,4 @@ errors.forEach(err => {
   fs.writeFileSync(`erros/${err.slug}.html`, page);
 });
 
-console.log("Páginas de erro geradas com sucesso.");
+console.log(`Páginas de erro geradas: ${errors.length}`);
