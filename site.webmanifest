@@ -1,21 +1,26 @@
 {
-  "name": "Testador de HTML Online",
-  "short_name": "HTML Tester",
-  "description": "Ferramenta para testar e validar código HTML online",
-  "start_url": "/html-teste/",
-  "display": "standalone",
-  "background_color": "#f5f5f5",
-  "theme_color": "#4361ee",
-  "icons": [
-    {
-      "src": "/html-teste/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/html-teste/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+    "name": "Testador de HTML Online",
+    "short_name": "HTML Tester",
+    "description": "Ferramenta gratuita para testar e validar código HTML online",
+    "start_url": "/html-teste/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4361ee",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/html-teste/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/html-teste/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["developer-tools", "education"],
+    "lang": "pt-BR",
+    "dir": "ltr"
 }
