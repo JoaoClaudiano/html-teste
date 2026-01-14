@@ -36,6 +36,7 @@ if (!fs.existsSync("erros")) {
   fs.mkdirSync("erros");
 }
 
+
 errors.forEach(err => {
   const impactList = err.impact
     .map(item => `<li>${item}</li>`)
