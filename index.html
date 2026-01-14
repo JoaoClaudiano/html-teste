@@ -6,14 +6,13 @@
 
   <meta name="description" content="Cole seu código HTML, visualize o resultado da página e receba análise de erros, acessibilidade e qualidade do código HTML." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- Favicon -->
-  <link rel="icon" href="/html-teste/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="/html-teste/favicon.png" type="image/png">
-  
+
   <!-- SEO -->
   <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/" />
   <meta name="robots" content="index, follow" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/html-teste/favicon.svg" type="image/svg+xml">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
@@ -54,43 +53,42 @@
   <aside class="ad ad-left" aria-label="Publicidade lateral esquerda">
     <!-- AdSense futuro -->
   </aside>
-  
-<!-- Conteúdo principal -->
-<section class="center">
 
-  <!-- SPLIT VIEW -->
-  <section class="split">
+  <!-- Conteúdo central -->
+  <section class="center">
 
-    <section class="editor">
-      <h2 class="visually-hidden">Editor de HTML</h2>
-      <textarea
-        id="htmlInput"
-        placeholder="Cole seu código HTML aqui..."
-        aria-label="Editor de código HTML"></textarea>
-      <button onclick="analyzeHTML()">Analisar e Visualizar</button>
+    <!-- Botão alternar layout -->
+    <button id="toggleLayout" class="layout-toggle">↔ Alternar layout</button>
+
+    <!-- Editor + Preview -->
+    <section class="split">
+      <section class="editor">
+        <h2 class="visually-hidden">Editor de HTML</h2>
+        <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
+        <button onclick="analyzeHTML()">Analisar e Visualizar</button>
+      </section>
+
+      <section class="preview">
+        <h2 class="visually-hidden">Visualização do resultado</h2>
+        <iframe id="previewFrame" sandbox=""></iframe>
+        <button onclick="openPreview()">Abrir em tela cheia</button>
+      </section>
     </section>
 
-    <section class="preview">
-      <h2 class="visually-hidden">Visualização do resultado</h2>
-      <iframe id="previewFrame"></iframe>
-      <button onclick="openPreview()">Abrir em tela cheia</button>
+    <!-- Links internos -->
+    <section class="links-internos">
+      <h2>Erros comuns de HTML</h2>
+      <ul>
+        <li><a href="/html-teste/erros/img-sem-alt.html">Imagem sem atributo alt</a></li>
+        <li><a href="/html-teste/erros/title-ausente.html">Tag &lt;title&gt; ausente</a></li>
+        <li><a href="/html-teste/erros/meta-description.html">Meta description ausente</a></li>
+      </ul>
     </section>
 
+    <!-- Resultados da análise -->
+    <section class="results" id="results" aria-live="polite"></section>
+
   </section>
-
-  <!-- ABAIXO DO SPLIT -->
-  <section class="links-internos">
-    <h2>Erros comuns de HTML</h2>
-    <ul>
-      <li><a href="/html-teste/erros/img-sem-alt.html">Imagem sem atributo alt</a></li>
-      <li><a href="/html-teste/erros/title-ausente.html">Tag &lt;title&gt; ausente</a></li>
-      <li><a href="/html-teste/erros/meta-description.html">Meta description ausente</a></li>
-    </ul>
-  </section>
-
-  <section class="results" id="results" aria-live="polite"></section>
-
-</section>
 
   <!-- Anúncio lateral direito -->
   <aside class="ad ad-right" aria-label="Publicidade lateral direita">
@@ -101,13 +99,12 @@
 
 <footer class="footer">
   <p>Ferramenta gratuita de análise HTML • © 2026</p>
-  <nav>
-    <a href="/html-teste/sobre.html">Sobre</a> |
-    <a href="/html-teste/termos.html">Termos de Uso</a> |
-    <a href="/html-teste/privacidade.html">Política de Privacidade</a>
-  </nav>
+  <a href="/html-teste/sobre.html">Sobre</a> |
+  <a href="/html-teste/termos.html">Termos de Uso</a> |
+  <a href="/html-teste/privacidade.html">Política de Privacidade</a>
 </footer>
 
-<script src="js/analyzer.js"></script>
+<!-- JS -->
+<script src="js/analyze.js"></script>
 </body>
 </html>
