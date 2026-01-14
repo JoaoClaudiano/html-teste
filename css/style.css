@@ -75,6 +75,41 @@ body.dark {
   cursor: pointer;
 }
 
+/* Botões do editor (Analisar + Limpar) */
+.editor-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.editor-buttons button {
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  border: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.editor-buttons button:hover {
+  opacity: 0.85;
+}
+
+.clear-btn {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.clear-btn:hover {
+  background-color: #f52e3a;
+}
+
+@media (max-width: 480px) {
+  .editor-buttons {
+    flex-direction: column;
+  }
+}
+
 .preview iframe {
   width: 100%;
   height: 300px;
