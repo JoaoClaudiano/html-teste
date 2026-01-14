@@ -2,36 +2,35 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Testador de HTML Online | Visualize, Depure e Analise Código HTML</title>
+  <title>Testador de HTML Online | Visualize, Depure e Analise Código</title>
 
-  <meta name="description" content="Cole seu código HTML, visualize o resultado da página e receba análise de erros, acessibilidade e qualidade do código." />
+  <meta name="description" content="Cole seu código HTML, visualize o resultado da página e receba análise de erros, acessibilidade e qualidade do código HTML." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- SEO -->
-  <link rel="canonical" href="https://seusite.com/" />
+  <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/" />
   <meta name="robots" content="index, follow" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
-  
+
+  <!-- Rich Snippet -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "HTML Tester",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Web",
-  "description": "Ferramenta online gratuita para testar, depurar e avaliar a qualidade do código HTML.",
-  "url": "https://joaoclaudiano.github.io/html-teste/",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "BRL"
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Testador de HTML Online",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "Ferramenta online gratuita para testar, visualizar e avaliar a qualidade do código HTML.",
+    "url": "https://joaoclaudiano.github.io/html-teste/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    }
   }
-}
-</script>
-  
-  
+  </script>
 </head>
 
 <body>
@@ -39,59 +38,51 @@
 <header class="top">
   <h1>Testador de HTML Online</h1>
   <p>Visualize, depure e avalie a qualidade do seu código HTML</p>
-  
-  <button id="darkToggle" class="dark-toggle">
-  🌙 Modo escuro
-</button>
+
+  <button id="darkToggle" class="dark-toggle" aria-label="Alternar modo escuro">
+    🌙 Modo escuro
+  </button>
 </header>
 
 <main class="layout">
 
-  <!-- Ad lateral esquerda -->
-  <aside class="ad ad-left">
-    <!-- AdSense -->
+  <!-- Anúncio lateral esquerdo -->
+  <aside class="ad ad-left" aria-label="Publicidade lateral esquerda">
+    <!-- AdSense futuro -->
   </aside>
 
-  <!-- Área central -->
+  <!-- Conteúdo principal -->
   <section class="center">
 
-    <div class="editor">
-      <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..."></textarea>
+    <section class="editor">
+      <h2 class="visually-hidden">Editor de HTML</h2>
+
+      <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
       <button onclick="analyzeHTML()">Analisar e Visualizar</button>
-    </div>
+    </section>
 
-    <div class="preview">
+    <section class="preview">
+      <h2 class="visually-hidden">Visualização do resultado</h2>
       <iframe id="previewFrame" sandbox=""></iframe>
-    </div>
-    
-    <section class="links-internos">
-  <h2>Erros comuns de HTML</h2>
-  <ul>
-    <li>
-      <a href="/html-teste/erros/img-sem-alt">
-        Imagem sem atributo alt
-      </a>
-    </li>
-    <li>
-      <a href="/html-teste/erros/title-ausente">
-        Tag &lt;title&gt; ausente
-      </a>
-    </li>
-    <li>
-      <a href="/html-teste/erros/meta-description">
-        Meta description ausente
-      </a>
-    </li>
-  </ul>
-</section>
+    </section>
 
-    <div class="results" id="results"></div>
+    <!-- Links internos -->
+    <section class="links-internos">
+      <h2>Erros comuns de HTML</h2>
+      <ul>
+        <li><a href="/html-teste/erros/img-sem-alt.html">Imagem sem atributo alt</a></li>
+        <li><a href="/html-teste/erros/title-ausente.html">Tag &lt;title&gt; ausente</a></li>
+        <li><a href="/html-teste/erros/meta-description.html">Meta description ausente</a></li>
+      </ul>
+    </section>
+
+    <section class="results" id="results" aria-live="polite"></section>
 
   </section>
 
-  <!-- Ad lateral direita -->
-  <aside class="ad ad-right">
-    <!-- AdSense -->
+  <!-- Anúncio lateral direito -->
+  <aside class="ad ad-right" aria-label="Publicidade lateral direita">
+    <!-- AdSense futuro -->
   </aside>
 
 </main>
