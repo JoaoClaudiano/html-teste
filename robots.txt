@@ -4,9 +4,11 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 
+
 # Sitemaps
 Sitemap: https://joaoclaudiano.github.io/html-teste/sitemap.xml
 Sitemap: https://joaoclaudiano.github.io/html-teste/sitemap-errors.xml
+
 
 # Crawl delay (opcional para evitar sobrecarga)
 Crawl-delay: 2
