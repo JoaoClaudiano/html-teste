@@ -106,7 +106,6 @@ toggle.addEventListener("click", () => {
     toggle.textContent = "🌙 Modo escuro";
   }
 });
-
 // Layout toggle
 const toggleLayoutBtn = document.getElementById("toggleLayout");
 const splitContainer = document.querySelector(".split");
