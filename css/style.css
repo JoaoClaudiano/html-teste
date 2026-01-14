@@ -1,211 +1,159 @@
-/* Reset & fonte */
-* { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+/* css/styles.css - Estilos principais */
 
+/* 1. Variáveis e reset */
 :root {
-  --bg: #f5f5f5;
-  --text: #222;
-  --card: #ffffff;
-  --border: #ccc;
-  --header: #111;
-  --header-text: #fff;
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --accent: #f72585;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --bg-light: #f5f5f5;
+  --bg-dark: #121212;
+  --text-light: #222;
+  --text-dark: #e0e0e0;
+  --card-light: #ffffff;
+  --card-dark: #1e1e1e;
+  --border-light: #ccc;
+  --border-dark: #333;
 }
 
+* { margin:0; padding:0; box-sizing:border-box; }
 
-body { background: var(--bg); color: var(--text); }
-body.dark { 
-  --bg: #121212;
-  --text: #e0e0e0;
-  --card: #1e1e1e;
-  --border: #333;
-  --header: #000;
-  --header-text: #fff;
+body {
+  font-family: Arial, sans-serif;
+  line-height:1.6;
+  background: var(--bg-light);
+  color: var(--text-light);
+  min-height:100vh;
+  transition:0.3s ease;
 }
 
-.top {
-  background: var(--header);
-  color: var(--header-text);
-  padding: 1rem;
-  text-align: center;
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
 }
 
-/* Botão Dark Mode discreto e circular */
-.dark-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.7);
-  background: rgba(0,0,0,0.2);
-  color: white;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.dark-toggle:hover {
-  background: rgba(0,0,0,0.4);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-body.dark .dark-toggle {
-  border: 1px solid rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-body.dark .dark-toggle:hover {
-  background: rgba(255,255,255,0.4);
-}
-
+/* 2. Layout principal do index.html */
 .layout {
-  display: grid;
-  grid-template-columns: 160px 1fr 160px;
-  gap: 16px;
-  max-width: 1200px;
-  margin: auto;
+  display:grid;
+  grid-template-columns:160px 1fr 160px;
+  gap:16px;
+  max-width:1400px;
+  margin:auto;
+  padding:1rem;
 }
 
-.ad { width: 160px; padding: 1rem; }
-.ads { min-height: 250px; background: transparent; }
-.center { padding: 1rem; }
+@media(max-width:900px){
+  .layout { grid-template-columns:1fr; }
+  .ad { display:none; }
+}
 
+/* 3. Split editor/preview */
 .split {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  display:flex;
+  gap:16px;
+  margin-bottom:2rem;
+  flex-wrap:wrap;
 }
 
-.split.stack { grid-template-columns: 1fr; }
+.editor, .preview {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
 
 .editor textarea {
-  width: 100%;
-  height: 200px;
-  padding: 10px;
-  font-family: monospace;
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
+  width:100%;
+  height:200px;
+  padding:10px;
+  font-family:monospace;
+  border:1px solid var(--border-light);
+  border-radius:4px;
+  background:var(--card-light);
+  color:var(--text-light);
+  transition:0.3s;
 }
 
-.editor button {
-  margin-top: 10px;
-  padding: 10px 16px;
-  cursor: pointer;
+body.dark .editor textarea {
+  background:var(--card-dark);
+  color:var(--text-dark);
+  border:1px solid var(--border-dark);
 }
 
-/* Botões do editor (Analisar + Limpar) */
-/* Botões principais do editor */
-.editor button,
-.preview button {
-  display: inline-block;
-  padding: 10px 18px;
-  margin-top: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  text-align: center;
-  min-width: 140px;
+/* 4. Botões */
+button.analyze, button.clear, button.fullscreen {
+  padding:10px 18px;
+  font-size:1rem;
+  font-weight:600;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  min-width:120px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  transition:0.3s;
 }
 
-/* Botão Analisar */
-.editor button.analyze {
-  background-color: #4361ee;
-  color: white;
+button.analyze {
+  background:var(--primary);
+  color:white;
+}
+button.analyze:hover {
+  background:var(--primary-dark);
+  transform:translateY(-2px);
 }
 
-.editor button.analyze:hover {
-  background-color: #3a56d4;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(67,97,238,0.3);
+button.clear {
+  background:var(--accent);
+  color:white;
+}
+button.clear:hover {
+  background:#d41f6c;
+  transform:translateY(-2px);
 }
 
-/* Botão Limpar */
-.editor button.clear {
-  background-color: #f72585;
-  color: white;
-}
-
-.editor button.clear:hover {
-  background-color: #d41f6c;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(247,37,133,0.3);
-}
-
-/* Botão Abrir Tela Cheia */
-.preview button.fullscreen {
-  background-color: #4cc9f0;
-  color: var(--dark-color, #212529);
-}
-
-.preview button.fullscreen:hover {
-  background-color: #3bb3da;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(76,201,240,0.3);
-}
-
-/* Garantir visibilidade no tema escuro */
-body.dark .editor button.analyze,
-body.dark .editor button.clear,
-body.dark .preview button.fullscreen {
-  color: white;
-}
-
-@media (max-width: 480px) {
-  .editor-buttons {
-    flex-direction: column;
-  }
-}
-
-.preview iframe {
-  width: 100%;
-  height: 300px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  margin-top: 10px;
-}
-
+/* 5. Cards de resultados */
 .results {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:15px;
+  margin-top:20px;
 }
 
-.card { background: var(--card); padding: 15px; border-left: 6px solid #999; }
-.card.ok { border-color: green; }
-.card.warn { border-color: orange; }
-.card.error { border-color: red; }
+.card {
+  background:var(--card-light);
+  padding:15px;
+  border-left:6px solid #999;
+  border-radius:4px;
+}
+body.dark .card { background:var(--card-dark); }
+.card.ok { border-color: #4CAF50; }
+.card.warn { border-color: #FF9800; }
+.card.error { border-color: #F44336; }
 
-.layout-toggle {
-  margin-bottom: 10px;
-  padding: 6px 12px;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  border-radius: 4px;
+/* 6. Estilos para páginas secundárias (sobre, termos, privacidade) */
+.container {
+  max-width:900px;
+  margin:2rem auto;
+  padding:0 1.5rem;
 }
 
-.footer {
-  text-align: center;
-  padding: 1rem;
-  background: var(--border);
+.section-card {
+  background:var(--card-light);
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  padding:2rem;
+  margin-bottom:2rem;
+  border-left:4px solid var(--primary);
 }
 
-@media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
-  .ad { width: 100%; text-align: center; }
-  .split { grid-template-columns: 1fr !important; }
+body.dark .section-card {
+  background:var(--card-dark);
+}
+
+.header-secondary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color:white;
+  padding:3rem 1.5rem;
+  text-align:center;
 }
