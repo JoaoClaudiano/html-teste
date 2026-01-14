@@ -128,6 +128,16 @@ function openPreview() {
   previewWindow.document.close();
 }
 
+function clearEditor() {
+  const textarea = document.getElementById("htmlInput");
+  const iframe = document.getElementById("previewFrame");
+  const results = document.getElementById("results");
+
+  textarea.value = "";        // Limpa o código
+  iframe.srcdoc = "";         // Limpa a visualização
+  results.innerHTML = "";     // Limpa os resultados
+}
+
 // Salvar HTML no localStorage
 const htmlInput = document.getElementById("htmlInput");
 if (localStorage.getItem("htmlCode")) {
