@@ -56,37 +56,41 @@
   </aside>
   
 <!-- Conteúdo principal -->
-<section class="center split">
+<section class="center">
 
-  <section class="editor">
-    <h2 class="visually-hidden">Editor de HTML</h2>
-    <textarea
-      id="htmlInput"
-      placeholder="Cole seu código HTML aqui..."
-      aria-label="Editor de código HTML"></textarea>
-    <button onclick="analyzeHTML()">Analisar e Visualizar</button>
-  </section>
+  <!-- SPLIT VIEW -->
+  <section class="split">
 
-  <section class="preview">
-    <h2 class="visually-hidden">Visualização do resultado</h2>
-    <iframe id="previewFrame"></iframe>
-    <button onclick="openPreview()">Abrir em tela cheia</button>
-  </section>
-
-    <!-- Links internos -->
-    <section class="links-internos">
-      <h2>Erros comuns de HTML</h2>
-      <ul>
-        <li><a href="/html-teste/erros/img-sem-alt.html">Imagem sem atributo alt</a></li>
-        <li><a href="/html-teste/erros/title-ausente.html">Tag &lt;title&gt; ausente</a></li>
-        <li><a href="/html-teste/erros/meta-description.html">Meta description ausente</a></li>
-      </ul>
+    <section class="editor">
+      <h2 class="visually-hidden">Editor de HTML</h2>
+      <textarea
+        id="htmlInput"
+        placeholder="Cole seu código HTML aqui..."
+        aria-label="Editor de código HTML"></textarea>
+      <button onclick="analyzeHTML()">Analisar e Visualizar</button>
     </section>
 
-    <!-- Resultados da análise -->
-    <section class="results" id="results" aria-live="polite"></section>
+    <section class="preview">
+      <h2 class="visually-hidden">Visualização do resultado</h2>
+      <iframe id="previewFrame"></iframe>
+      <button onclick="openPreview()">Abrir em tela cheia</button>
+    </section>
 
   </section>
+
+  <!-- ABAIXO DO SPLIT -->
+  <section class="links-internos">
+    <h2>Erros comuns de HTML</h2>
+    <ul>
+      <li><a href="/html-teste/erros/img-sem-alt.html">Imagem sem atributo alt</a></li>
+      <li><a href="/html-teste/erros/title-ausente.html">Tag &lt;title&gt; ausente</a></li>
+      <li><a href="/html-teste/erros/meta-description.html">Meta description ausente</a></li>
+    </ul>
+  </section>
+
+  <section class="results" id="results" aria-live="polite"></section>
+
+</section>
 
   <!-- Anúncio lateral direito -->
   <aside class="ad ad-right" aria-label="Publicidade lateral direita">
