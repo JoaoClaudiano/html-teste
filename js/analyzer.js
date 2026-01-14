@@ -64,3 +64,26 @@ function error(title, msg) {
 function warn(title, msg) {
   return card(title, msg, "warn");
 }
+
+const toggle = document.getElementById("darkToggle");
+
+// Carregar preferência
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+  toggle.textContent = "☀️ Modo claro";
+}
+
+// Alternar
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+    toggle.textContent = "☀️ Modo claro";
+  } else {
+    localStorage.setItem("theme", "light");
+    toggle.textContent = "🌙 Modo escuro";
+  }
+});
+
+
