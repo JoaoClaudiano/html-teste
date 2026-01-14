@@ -1,53 +1,94 @@
 function analyzeHTML() {
   const html = document.getElementById("htmlInput").value;
+  let score = 100;
   const results = [];
 
-  // Renderização
   const iframe = document.getElementById("previewFrame");
   iframe.srcdoc = html;
 
-  // Parser
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
-
+  
   // Regras
+  // Idioma
   if (!doc.documentElement.lang) {
+    score -= 10;
     results.push(error("Idioma não definido", "Adicione lang=\"pt-BR\" na tag <html>"));
   }
 
+  // Head
   if (!doc.querySelector("head")) {
+    score -= 15;
     results.push(error("Sem <head>", "O documento não possui <head>"));
   }
 
+  // Body
   if (!doc.querySelector("body")) {
+    score -= 15;
     results.push(error("Sem <body>", "O documento não possui <body>"));
   }
 
+  // Imagens sem ALT
   const imgs = doc.querySelectorAll("img");
+  let imgPenalty = 0;
+
   imgs.forEach(img => {
     if (!img.hasAttribute("alt")) {
+      imgPenalty += 5;
       results.push(warn("Imagem sem ALT", "Imagens devem conter atributo alt"));
     }
   });
 
+  score -= Math.min(imgPenalty, 20);
+
+  // Excesso de DIV
   const divs = doc.querySelectorAll("div").length;
   if (divs > 20) {
+    score -= 10;
     results.push(warn("Excesso de DIVs", "Considere usar tags semânticas"));
   }
 
-  renderResults(results);
+  // Tags obsoletas
+  const obsolete = doc.querySelectorAll("font, center, marquee");
+  if (obsolete.length > 0) {
+    score -= 10;
+    results.push(warn("Tags obsoletas", "Evite usar <font>, <center>, <marquee>"));
+  }
+
+  score = Math.max(score, 0);
+
+  renderResults(results, score);
 }
 
-function renderResults(items) {
+function renderResults(items, score) {
   const container = document.getElementById("results");
   container.innerHTML = "";
 
+  container.appendChild(scoreCard(score));
+
   if (items.length === 0) {
-    container.innerHTML = card("Código limpo", "Nenhum problema encontrado", "ok");
+    container.appendChild(card("Código limpo", "Nenhum problema encontrado", "ok"));
     return;
   }
 
   items.forEach(item => container.appendChild(item));
+}
+
+function scoreCard(score) {
+  let type = "ok";
+  let label = "Excelente";
+
+  if (score < 90) { label = "Bom"; }
+  if (score < 70) { label = "Regular"; type = "warn"; }
+  if (score < 50) { label = "Ruim"; type = "error"; }
+
+  const div = document.createElement("div");
+  div.className = `card ${type}`;
+  div.innerHTML = `
+    <h3>Qualidade do HTML</h3>
+    <p><strong>${score}/100</strong> — ${label}</p>
+  `;
+  return div;
 }
 
 function card(title, msg, type) {
