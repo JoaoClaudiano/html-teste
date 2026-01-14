@@ -1,46 +1,55 @@
+/* =========================
+   RESET E BASE
+========================= */
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* =========================
+   VARIÁVEIS DE TEMA
+========================= */
 :root {
   --bg: #f5f5f5;
   --text: #222;
   --card: #ffffff;
   --border: #ccc;
+
   --header: #111;
   --header-text: #fff;
+
+  --accent: #2563eb;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
+/* ===== DARK MODE ===== */
+body.dark {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --card: #1e1e1e;
+  --border: #333;
+
+  --header: #000;
+  --header-text: #fff;
+
+  --accent: #38bdf8;
 }
 
+/* =========================
+   HEADER
+========================= */
 .top {
   background: var(--header);
   color: var(--header-text);
+  padding: 1rem;
+  text-align: center;
 }
-
-.card {
-  background: var(--card);
-}
-
-.preview iframe {
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
-.editor textarea {
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.footer {
-  background: var(--border);
-}
-
 
 .dark-toggle {
   margin-top: 10px;
@@ -53,68 +62,95 @@ body {
 }
 
 .dark-toggle:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-body.dark {
-  --bg: #121212;
-  --text: #e0e0e0;
-  --card: #1e1e1e;
-  --border: #333;
-  --header: #000;
-  --header-text: #fff;
-}
-
-body {
-  margin: 0;
-  background: #f5f5f5;
-  color: #222;
-}
-
-.top {
-  background: #111;
-  color: #fff;
-  padding: 1rem;
-  text-align: center;
-}
-
+/* =========================
+   LAYOUT GERAL (GRID)
+========================= */
 .layout {
-  display: flex;
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 16px;
   max-width: 1400px;
   margin: auto;
+  padding: 1rem;
 }
 
+/* =========================
+   ANÚNCIOS
+========================= */
 .ad {
-  width: 160px;
   padding: 1rem;
 }
 
+/* =========================
+   ÁREA CENTRAL
+========================= */
 .center {
-  flex: 1;
+  background: var(--card);
   padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
+/* ===== SPLIT VIEW (EDITOR + PREVIEW) ===== */
+.center.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* =========================
+   EDITOR
+========================= */
 .editor textarea {
   width: 100%;
-  height: 200px;
+  height: 260px;
   padding: 10px;
   font-family: monospace;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
 .editor button {
   margin-top: 10px;
   padding: 10px 16px;
+  width: 100%;
   cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
 }
 
+/* =========================
+   PREVIEW
+========================= */
 .preview iframe {
   width: 100%;
-  height: 300px;
-  background: white;
-  border: 1px solid #ccc;
-  margin-top: 15px;
+  height: 260px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
 }
 
+.preview button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  width: 100%;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}
+
+/* =========================
+   RESULTADOS / CARDS
+========================= */
 .results {
   margin-top: 20px;
   display: grid;
@@ -123,54 +159,72 @@ body {
 }
 
 .card {
-  background: white;
+  background: var(--card);
   padding: 15px;
   border-left: 6px solid #999;
+  border-radius: 4px;
 }
 
-.card.ok { border-color: green; }
-.card.warn { border-color: orange; }
-.card.error { border-color: red; }
+.card.ok {
+  border-color: green;
+}
 
+.card.warn {
+  border-color: orange;
+}
+
+.card.error {
+  border-color: red;
+}
+
+/* =========================
+   LINKS INTERNOS
+========================= */
+.links-internos {
+  margin-top: 2rem;
+}
+
+.links-internos ul {
+  padding-left: 1rem;
+}
+
+/* =========================
+   FOOTER
+========================= */
 .footer {
+  margin-top: 2rem;
   text-align: center;
   padding: 1rem;
-  background: #ddd;
+  background: var(--border);
+  font-size: 0.9rem;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 160px 1fr 160px;
-  gap: 16px;
-  max-width: 1200px;
-  margin: auto;
+/* =========================
+   ACESSIBILIDADE
+========================= */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
 }
 
-.ads {
-  min-height: 250px;
-  background: transparent;
-}
-
+/* =========================
+   RESPONSIVO (MOBILE)
+========================= */
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
   }
 
-  .ads {
+  .ad {
     display: none;
   }
-}
 
-/* 📱 Mobile */
-@media (max-width: 900px) {
-  .layout {
-    flex-direction: column;
+  .center.split {
+    grid-template-columns: 1fr;
   }
 
-  .ad {
-    width: 100%;
-    text-align: center;
+  .editor textarea,
+  .preview iframe {
+    height: 220px;
   }
 }
-
-
