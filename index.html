@@ -65,8 +65,15 @@
     <section class="split">
       <section class="editor">
         <h2 class="visually-hidden">Editor de HTML</h2>
-        <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
-        <button onclick="analyzeHTML()">Analisar e Visualizar</button>
+        <textarea
+          id="htmlInput"
+          placeholder="Cole seu código HTML aqui..."
+          aria-label="Editor de código HTML"></textarea>
+        
+        <div class="editor-buttons">
+          <button onclick="analyzeHTML()">Analisar e Visualizar</button>
+          <button onclick="clearEditor()" class="clear-btn">Limpar</button>
+        </div>
       </section>
 
       <section class="preview">
