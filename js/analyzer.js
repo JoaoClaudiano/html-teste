@@ -127,4 +127,24 @@ toggle.addEventListener("click", () => {
   }
 });
 
+function openPreview() {
+  const htmlCode = document.getElementById("htmlInput").value;
+
+  if (!htmlCode.trim()) {
+    alert("Cole algum código HTML antes de visualizar.");
+    return;
+  }
+
+  const previewWindow = window.open("", "_blank");
+
+  if (!previewWindow) {
+    alert("O navegador bloqueou a nova aba. Permita pop-ups para este site.");
+    return;
+  }
+
+  previewWindow.document.open();
+  previewWindow.document.write(htmlCode);
+  previewWindow.document.close();
+}
+
 
