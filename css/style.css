@@ -76,32 +76,64 @@ body.dark {
 }
 
 /* Botões do editor (Analisar + Limpar) */
-.editor-buttons {
-  display: flex;
-  gap: 10px;
+/* Botões principais do editor */
+.editor button,
+.preview button {
+  display: inline-block;
+  padding: 10px 18px;
   margin-top: 10px;
-}
-
-.editor-buttons button {
-  padding: 10px 16px;
-  cursor: pointer;
-  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  font-weight: 500;
-  transition: var(--transition);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 140px;
 }
 
-.editor-buttons button:hover {
-  opacity: 0.85;
-}
-
-.clear-btn {
-  background-color: var(--danger-color);
+/* Botão Analisar */
+.editor button.analyze {
+  background-color: #4361ee;
   color: white;
 }
 
-.clear-btn:hover {
-  background-color: #f52e3a;
+.editor button.analyze:hover {
+  background-color: #3a56d4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(67,97,238,0.3);
+}
+
+/* Botão Limpar */
+.editor button.clear {
+  background-color: #f72585;
+  color: white;
+}
+
+.editor button.clear:hover {
+  background-color: #d41f6c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(247,37,133,0.3);
+}
+
+/* Botão Abrir Tela Cheia */
+.preview button.fullscreen {
+  background-color: #4cc9f0;
+  color: var(--dark-color, #212529);
+}
+
+.preview button.fullscreen:hover {
+  background-color: #3bb3da;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76,201,240,0.3);
+}
+
+/* Garantir visibilidade no tema escuro */
+body.dark .editor button.analyze,
+body.dark .editor button.clear,
+body.dark .preview button.fullscreen {
+  color: white;
 }
 
 @media (max-width: 480px) {
