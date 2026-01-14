@@ -3,7 +3,6 @@ const fs = require("fs");
 const baseUrl = "https://joaoclaudiano.github.io/html-teste/";
 
 const pages = [];
-
 // Home
 pages.push(`${baseUrl}/`);
 
