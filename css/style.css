@@ -1,49 +1,25 @@
-/* =========================
-   RESET E BASE
-========================= */
-* {
-  box-sizing: border-box;
-}
+/* Reset & fonte */
+* { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.3s, color 0.3s;
-}
-
-/* =========================
-   VARIÁVEIS DE TEMA
-========================= */
 :root {
   --bg: #f5f5f5;
   --text: #222;
   --card: #ffffff;
   --border: #ccc;
-
   --header: #111;
   --header-text: #fff;
-
-  --accent: #2563eb;
 }
 
-/* ===== DARK MODE ===== */
-body.dark {
+body { background: var(--bg); color: var(--text); }
+body.dark { 
   --bg: #121212;
   --text: #e0e0e0;
   --card: #1e1e1e;
   --border: #333;
-
   --header: #000;
   --header-text: #fff;
-
-  --accent: #38bdf8;
 }
 
-/* =========================
-   HEADER
-========================= */
 .top {
   background: var(--header);
   color: var(--header-text);
@@ -54,109 +30,58 @@ body.dark {
 .dark-toggle {
   margin-top: 10px;
   padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid var(--header-text);
   background: transparent;
   color: var(--header-text);
-  border: 1px solid var(--header-text);
-  cursor: pointer;
   border-radius: 4px;
 }
 
-.dark-toggle:hover {
-  opacity: 0.85;
-}
-
-/* =========================
-   LAYOUT GERAL (GRID)
-========================= */
 .layout {
   display: grid;
   grid-template-columns: 160px 1fr 160px;
   gap: 16px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: auto;
-  padding: 1rem;
 }
 
-/* =========================
-   ANÚNCIOS
-========================= */
-.ad {
-  padding: 1rem;
-}
+.ad { width: 160px; padding: 1rem; }
+.ads { min-height: 250px; background: transparent; }
+.center { padding: 1rem; }
 
-/* =========================
-   ÁREA CENTRAL
-========================= */
-.center {
-  background: var(--card);
-  padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-/* ===== SPLIT VIEW (EDITOR + PREVIEW) ===== */
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  margin-bottom: 16px;
 }
 
-@media (max-width: 900px) {
-  .split {
-    grid-template-columns: 1fr;
-  }
-}
+.split.stack { grid-template-columns: 1fr; }
 
-/* =========================
-   EDITOR
-========================= */
 .editor textarea {
   width: 100%;
-  height: 260px;
+  height: 200px;
   padding: 10px;
   font-family: monospace;
   background: var(--card);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 6px;
 }
 
 .editor button {
   margin-top: 10px;
   padding: 10px 16px;
-  width: 100%;
   cursor: pointer;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
 }
 
-/* =========================
-   PREVIEW
-========================= */
 .preview iframe {
   width: 100%;
-  height: 260px;
-  background: #fff;
+  height: 300px;
   border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.preview button {
+  background: var(--card);
   margin-top: 10px;
-  padding: 10px 16px;
-  width: 100%;
-  cursor: pointer;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
 }
 
-/* =========================
-   RESULTADOS / CARDS
-========================= */
 .results {
   margin-top: 20px;
   display: grid;
@@ -164,73 +89,29 @@ body.dark {
   gap: 15px;
 }
 
-.card {
+.card { background: var(--card); padding: 15px; border-left: 6px solid #999; }
+.card.ok { border-color: green; }
+.card.warn { border-color: orange; }
+.card.error { border-color: red; }
+
+.layout-toggle {
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid var(--border);
   background: var(--card);
-  padding: 15px;
-  border-left: 6px solid #999;
+  color: var(--text);
   border-radius: 4px;
 }
 
-.card.ok {
-  border-color: green;
-}
-
-.card.warn {
-  border-color: orange;
-}
-
-.card.error {
-  border-color: red;
-}
-
-/* =========================
-   LINKS INTERNOS
-========================= */
-.links-internos {
-  margin-top: 2rem;
-}
-
-.links-internos ul {
-  padding-left: 1rem;
-}
-
-/* =========================
-   FOOTER
-========================= */
 .footer {
-  margin-top: 2rem;
   text-align: center;
   padding: 1rem;
   background: var(--border);
-  font-size: 0.9rem;
 }
 
-/* =========================
-   ACESSIBILIDADE
-========================= */
-.visually-hidden {
-  position: absolute;
-  left: -9999px;
-}
-
-/* =========================
-   RESPONSIVO (MOBILE)
-========================= */
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  .ad {
-    display: none;
-  }
-
-  .center.split {
-    grid-template-columns: 1fr;
-  }
-
-  .editor textarea,
-  .preview iframe {
-    height: 220px;
-  }
+  .layout { grid-template-columns: 1fr; }
+  .ad { width: 100%; text-align: center; }
+  .split { grid-template-columns: 1fr !important; }
 }
