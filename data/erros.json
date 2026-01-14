@@ -11,6 +11,7 @@
     ],
     "solution": "<img src=\"foto.jpg\" alt=\"Descrição da imagem\">"
   },
+  
   {
     "slug": "html-sem-lang",
     "title": "HTML sem atributo lang",
