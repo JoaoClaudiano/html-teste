@@ -1,6 +1,6 @@
 const fs = require("fs");
 const errors = JSON.parse(fs.readFileSync("errors.json", "utf8"));
-const template = fs.readFileSync("templates/error-template.html", "utf8");
+const template = fs.readFileSync("data/error-template.html", "utf8");
 
 if (!fs.existsSync("erros")) {
   fs.mkdirSync("erros");
