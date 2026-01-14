@@ -55,25 +55,23 @@
     <!-- AdSense futuro -->
   </aside>
   
-  <!-- Conteúdo principal -->
-  <section class="center">
+<!-- Conteúdo principal -->
+<section class="center split">
 
-    <!-- Editor + Preview -->
-    <div class="split">
+  <section class="editor">
+    <h2 class="visually-hidden">Editor de HTML</h2>
+    <textarea
+      id="htmlInput"
+      placeholder="Cole seu código HTML aqui..."
+      aria-label="Editor de código HTML"></textarea>
+    <button onclick="analyzeHTML()">Analisar e Visualizar</button>
+  </section>
 
-      <section class="editor">
-        <h2 class="visually-hidden">Editor de HTML</h2>
-        <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
-        <button onclick="analyzeHTML()">Analisar e Visualizar</button>
-      </section>
-
-      <section class="preview">
-        <h2 class="visually-hidden">Visualização do resultado</h2>
-        <iframe id="previewFrame" sandbox=""></iframe>
-        <button onclick="openPreview()">Abrir em tela cheia</button>
-      </section>
-
-    </div> <!-- split -->
+  <section class="preview">
+    <h2 class="visually-hidden">Visualização do resultado</h2>
+    <iframe id="previewFrame"></iframe>
+    <button onclick="openPreview()">Abrir em tela cheia</button>
+  </section>
 
     <!-- Links internos -->
     <section class="links-internos">
