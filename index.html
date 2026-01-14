@@ -1,305 +1,385 @@
 <!DOCTYPE html>
 <html lang="pt-BR" itemscope itemtype="https://schema.org/WebApplication">
 <head>
-  <meta charset="UTF-8" />
-  <title>Testador de HTML Online Gratuito | Validador e Visualizador de Código HTML</title>
-  <meta name="description" content="Ferramenta gratuita para testar HTML online. Cole seu código, visualize o resultado em tempo real, analise erros, acessibilidade e qualidade do HTML. Validador HTML, SEO checker e validador de acessibilidade." />
-  <meta name="keywords" content="testador html online, validador html, html checker, visualizador html, analisador html, testar código html, validador de acessibilidade, seo html, ferramenta html online" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Essential -->
-  <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="bingbot" content="index, follow" />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/" />
-  <meta property="og:title" content="Testador de HTML Online Gratuito | Validador e Visualizador" />
-  <meta property="og:description" content="Teste seu código HTML online. Visualize, valide erros, acessibilidade e SEO. Ferramenta 100% gratuita para desenvolvedores web." />
-  <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/assets/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="Testador de HTML Online" />
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://joaoclaudiano.github.io/html-teste/" />
-  <meta name="twitter:title" content="Testador de HTML Online Gratuito" />
-  <meta name="twitter:description" content="Valide e visualize código HTML online. Análise de erros, acessibilidade e SEO. Ferramenta para desenvolvedores web." />
-  <meta name="twitter:image" content="https://joaoclaudiano.github.io/html-teste/assets/twitter-card.png" />
-  
-  <!-- Schema.org structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Testador de HTML Online",
-    "description": "Ferramenta gratuita para testar, validar e visualizar código HTML online com análise de erros, acessibilidade e SEO.",
-    "url": "https://joaoclaudiano.github.io/html-teste/",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "BRL"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "João Claudiano",
-      "url": "https://github.com/joaoclaudiano"
-    },
-    "datePublished": "2026-01-14",
-    "keywords": "html, validador, testador, código, desenvolvimento web, acessibilidade, seo",
-    "screenshot": "https://joaoclaudiano.github.io/html-teste/assets/screenshot.png",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "150"
+    <!-- Meta Charset e Viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- Título SEO Otimizado -->
+    <title>Testador de HTML Online Gratuito | Validador e Visualizador de Código HTML</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="Ferramenta gratuita para testar e validar código HTML online. Cole seu código, visualize em tempo real, analise erros, acessibilidade e melhore o SEO do seu HTML.">
+    
+    <!-- Keywords -->
+    <meta name="keywords" content="testador html online, validador html, html checker, visualizador html, analisador html, testar código html, validador de acessibilidade, seo html, ferramenta html online, html5, validador w3c">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://joaoclaudiano.github.io/html-teste/">
+    
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Author -->
+    <meta name="author" content="Testador de HTML Online">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://joaoclaudiano.github.io/html-teste/">
+    <meta property="og:title" content="Testador de HTML Online Gratuito | Validador e Visualizador">
+    <meta property="og:description" content="Teste seu código HTML online. Visualize, valide erros, acessibilidade e SEO. Ferramenta 100% gratuita para desenvolvedores web.">
+    <meta property="og:image" content="https://joaoclaudiano.github.io/html-teste/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Testador de HTML Online">
+    <meta property="og:locale" content="pt_BR">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://joaoclaudiano.github.io/html-teste/">
+    <meta name="twitter:title" content="Testador de HTML Online Gratuito">
+    <meta name="twitter:description" content="Valide e visualize código HTML online. Análise de erros, acessibilidade e SEO.">
+    <meta name="twitter:image" content="https://joaoclaudiano.github.io/html-teste/assets/twitter-card.png">
+    <meta name="twitter:creator" content="@htmltester">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Testador de HTML Online",
+        "description": "Ferramenta gratuita para testar, validar e visualizar código HTML online com análise de erros, acessibilidade e SEO.",
+        "url": "https://joaoclaudiano.github.io/html-teste/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "João Claudiano",
+            "url": "https://github.com/joaoclaudiano"
+        },
+        "datePublished": "2026-01-14",
+        "dateModified": "2026-01-14",
+        "keywords": "html, validador, testador, código, desenvolvimento web, acessibilidade, seo",
+        "screenshot": "https://joaoclaudiano.github.io/html-teste/assets/screenshot.png"
     }
-  }
-  </script>
-  
-  <!-- FAQ Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "O que é o Testador de HTML Online?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "É uma ferramenta gratuita que permite colar código HTML, visualizar o resultado em tempo real e receber análise detalhada sobre erros, acessibilidade e boas práticas de desenvolvimento web."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "O site valida HTML5?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sim, analisamos código HTML5 completo, incluindo tags semânticas, atributos modernos e compatibilidade com os padrões atuais da web."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "A ferramenta é gratuita?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sim, 100% gratuita e sem necessidade de cadastro. Você pode usar quantas vezes quiser sem limites."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Analisamos SEO e acessibilidade?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sim! Verificamos fatores importantes para SEO como meta tags, atributos alt em imagens, e para acessibilidade como labels, ARIA attributes e estrutura semântica."
-        }
-      }
-    ]
-  }
-  </script>
-  
-  <!-- Icons -->
-  <link rel="icon" href="/html-teste/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/html-teste/apple-touch-icon.png">
-  <link rel="manifest" href="/html-teste/site.webmanifest">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css">
-  
-  <style>
-  /* SEO improvements */
-  .breadcrumb {
-    background: #f8f9fa;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-  }
-  .breadcrumb a {
-    color: #4361ee;
-  }
-  .breadcrumb span {
-    color: #666;
-  }
-  .structured-data {
-    display: none;
-  }
-  
-  /* Microdata enhancements */
-  [itemprop] {
-    border: none;
-  }
-  </style>
+    </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "O que é o Testador de HTML Online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "É uma ferramenta gratuita que permite colar código HTML, visualizar o resultado em tempo real e receber análise detalhada sobre erros, acessibilidade e boas práticas de desenvolvimento web."
+            }
+        }, {
+            "@type": "Question",
+            "name": "O site valida HTML5?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim, analisamos código HTML5 completo, incluindo tags semânticas, atributos modernos e compatibilidade com os padrões atuais da web."
+            }
+        }, {
+            "@type": "Question",
+            "name": "A ferramenta é gratuita?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim, 100% gratuita e sem necessidade de cadastro. Você pode usar quantas vezes quiser sem limites."
+            }
+        }]
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://joaoclaudiano.github.io/html-teste/"
+        }]
+    }
+    </script>
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/html-teste/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/html-teste/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/html-teste/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/html-teste/favicon-16x16.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/html-teste/site.webmanifest">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#4361ee" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Preconnect para otimização -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload CSS -->
+    <link rel="preload" href="css/styles.css" as="style">
+    
+    <style>
+        /* CSS inline para carregamento rápido */
+        .loading { opacity: 0; }
+        .loaded { opacity: 1; transition: opacity 0.3s; }
+    </style>
 </head>
-
-<body itemscope itemtype="https://schema.org/WebPage">
-  
-  <!-- Breadcrumb Schema -->
-  <nav class="breadcrumb" aria-label="Navegação estrutural">
-    <span itemscope itemtype="https://schema.org/BreadcrumbList">
-      <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="https://joaoclaudiano.github.io/html-teste/">
-          <span itemprop="name">Testador HTML</span>
-        </a>
-        <meta itemprop="position" content="1" />
-      </span>
-    </span>
-  </nav>
-
-  <header class="top" itemprop="headline">
-    <h1 itemprop="name">Testador de HTML Online</h1>
-    <p itemprop="description">Visualize, depure e avalie a qualidade do seu código HTML</p>
-    <button id="darkToggle" class="dark-toggle" aria-label="Alternar modo escuro">🌙 Modo escuro</button>
-  </header>
-
-  <main class="layout" itemprop="mainContentOfPage">
-    <aside class="ad ad-left" aria-label="Publicidade lateral esquerda"></aside>
-
-    <section class="center">
-      <section class="split">
-        <section class="editor" itemscope itemtype="https://schema.org/CreativeWork">
-          <h2 class="visually-hidden">Editor de HTML</h2>
-          <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
-          <div class="editor-buttons">
-            <button class="analyze" onclick="analyzeHTML()" itemprop="potentialAction">Analisar HTML</button>
-            <button class="clear" onclick="clearEditor()">Limpar</button>
-            <button class="example" onclick="loadExample()">Exemplo</button>
-          </div>
-        </section>
-
-        <section class="preview">
-          <h2 class="visually-hidden">Visualização do resultado</h2>
-          <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin" title="Visualização do código HTML"></iframe>
-          <button class="fullscreen" onclick="openPreview()">Abrir em tela cheia</button>
-        </section>
-      </section>
-
-      <!-- Links internos como cards -->
-      <section class="links-internos">
-        <h2>Erros comuns de HTML</h2>
-        <div class="cards">
-          <a class="card" href="erros/img-sem-alt.html" target="_blank" rel="noopener nofollow"><span>🖼️</span> Imagem sem atributo <code>alt</code></a>
-          <a class="card" href="erros/title-ausente.html" target="_blank" rel="noopener nofollow"><span>📄</span> Tag <code>&lt;title&gt;</code> ausente</a>
-          <a class="card" href="erros/meta-description.html" target="_blank" rel="noopener nofollow"><span>📝</span> Meta <code>description</code> ausente</a>
+<body itemscope itemtype="https://schema.org/WebPage" class="loading">
+    <!-- Google Tag Manager (opcional) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+    <!-- Cabeçalho -->
+    <header class="header" role="banner" itemprop="headline">
+        <div class="container">
+            <div class="header-content">
+                <h1 itemprop="name">Testador de HTML</h1>
+                <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo escuro">
+                    <span>🌙</span>
+                </button>
+            </div>
         </div>
-      </section>
+    </header>
 
-      <section class="results" id="results" aria-live="polite"></section>
-    </section>
+    <!-- Conteúdo principal -->
+    <main class="main-content" role="main" itemprop="mainContentOfPage">
+        <div class="container">
+            
+            <!-- Editor de código -->
+            <section class="editor-section" itemscope itemtype="https://schema.org/CreativeWork">
+                <h2 class="visually-hidden" itemprop="name">Editor de HTML</h2>
+                <textarea class="code-input" id="htmlInput" 
+                          placeholder="&lt;!DOCTYPE html&gt;
+&lt;html lang='pt-BR'&gt;
+&lt;head&gt;
+  &lt;title&gt;Minha Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Cole seu HTML aqui --&gt;
+&lt;/body&gt;
+&lt;/html&gt;"
+                          aria-label="Editor de código HTML"
+                          itemprop="text"></textarea>
+                
+                <div class="actions-grid">
+                    <button class="btn btn-primary" onclick="analyzeHTML()" itemprop="potentialAction">
+                        <span>🔍</span> Analisar
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearEditor()">
+                        <span>🗑️</span> Limpar
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadExample()">
+                        <span>📋</span> Exemplo
+                    </button>
+                    <button class="btn btn-accent" onclick="openPreview()">
+                        <span>📺</span> Visualizar
+                    </button>
+                </div>
+            </section>
 
-    <aside class="ad ad-right" aria-label="Publicidade lateral direita"></aside>
-  </main>
+            <!-- Preview -->
+            <section class="preview-section">
+                <h2 class="visually-hidden">Visualização</h2>
+                <div class="preview-container">
+                    <iframe id="previewFrame" 
+                            sandbox="allow-scripts allow-same-origin" 
+                            title="Visualização do código HTML"
+                            loading="lazy"></iframe>
+                </div>
+            </section>
 
-  <footer class="footer" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-    <p>Ferramenta gratuita de análise HTML • © <span itemprop="copyrightYear">2026</span></p>
-    <div>
-      <a href="sobre.html" itemprop="about">Sobre</a> |
-      <a href="termos.html" itemprop="termsOfService">Termos de Uso</a> |
-      <a href="privacidade.html" itemprop="privacyPolicy">Política de Privacidade</a> |
-      <a href="sitemap.xml">Mapa do Site</a>
-    </div>
-    <meta itemprop="name" content="Testador de HTML Online">
-    <meta itemprop="url" content="https://joaoclaudiano.github.io/html-teste/">
-  </footer>
+            <!-- Dicas rápidas -->
+            <section class="tips-section">
+                <h2>Verificar no código:</h2>
+                <div class="tips-grid">
+                    <a href="erros/img-sem-alt.html" class="tip-item" rel="noopener">
+                        <span>🖼️</span> <code>alt</code> em imagens
+                    </a>
+                    <a href="erros/title-ausente.html" class="tip-item" rel="noopener">
+                        <span>📄</span> Tag <code>&lt;title&gt;</code>
+                    </a>
+                    <a href="erros/meta-description.html" class="tip-item" rel="noopener">
+                        <span>📝</span> Meta description
+                    </a>
+                </div>
+            </section>
 
-  <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Voltar ao topo">↑</button>
+            <!-- Resultados -->
+            <section class="results-section" id="resultsSection" aria-live="polite">
+                <div class="score-badge" id="scoreBadge">--/100</div>
+                <div class="results-list" id="resultsList">
+                    <div class="result-item">
+                        <h3>Cole código e clique em "Analisar"</h3>
+                        <p>O resultado aparecerá aqui</p>
+                    </div>
+                </div>
+            </section>
 
-  <script src="js/analyze.js"></script>
-  <script>
-    // Dark mode toggle
-    const toggle = document.getElementById("darkToggle");
-    if(localStorage.getItem("theme")==="dark"){ 
-      document.body.classList.add("dark"); 
-      toggle.textContent="☀️ Modo claro"; 
-    }
-    toggle.addEventListener("click",()=>{ 
-      document.body.classList.toggle("dark"); 
-      if(document.body.classList.contains("dark")){ 
-        localStorage.setItem("theme","dark"); 
-        toggle.textContent="☀️ Modo claro"; 
-      } else { 
-        localStorage.setItem("theme","light"); 
-        toggle.textContent="🌙 Modo escuro"; 
-      }
-    });
+        </div>
+    </main>
 
-    // Botão subir ao topo
-    const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll",()=>{ 
-      if(window.scrollY>200){ 
-        backToTop.style.display="block"; 
-      } else { 
-        backToTop.style.display="none"; 
-      }
-    });
+    <!-- Rodapé -->
+    <footer class="footer" role="contentinfo" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+        <div class="container">
+            <div class="footer-links">
+                <a href="sobre.html" itemprop="about">Sobre</a>
+                <a href="termos.html" itemprop="termsOfService">Termos</a>
+                <a href="privacidade.html" itemprop="privacyPolicy">Privacidade</a>
+                <a href="sitemap.xml">Mapa do Site</a>
+            </div>
+            <p class="copyright">
+                © <span itemprop="copyrightYear">2026</span> • 
+                <span itemprop="name">Testador de HTML Online</span> • 
+                Ferramenta educacional
+            </p>
+            <meta itemprop="url" content="https://joaoclaudiano.github.io/html-teste/">
+        </div>
+    </footer>
 
-    // Funções adicionais
-    function clearEditor() {
-      document.getElementById('htmlInput').value = '';
-      document.getElementById('previewFrame').srcdoc = '';
-      document.getElementById('results').innerHTML = '';
-      localStorage.removeItem('htmlCode');
-    }
+    <!-- Botão flutuante -->
+    <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" 
+            aria-label="Voltar ao topo" title="Voltar ao topo">
+        ↑
+    </button>
 
-    function loadExample() {
-      const exampleHTML = `<!DOCTYPE html>
+    <!-- Scripts -->
+    <script src="js/analyze.js" defer></script>
+    <script>
+        // Remover classe de loading quando carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        });
+
+        // Dark mode
+        const toggle = document.getElementById('darkToggle');
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            toggle.innerHTML = '<span>☀️</span>';
+        }
+        
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            toggle.innerHTML = isDark ? '<span>☀️</span>' : '<span>🌙</span>';
+        });
+
+        // Exemplo de código
+        function loadExample() {
+            const example = `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minha Página de Exemplo</title>
-  <meta name="description" content="Uma página HTML de exemplo para testar a ferramenta">
+  <title>Exemplo HTML Válido</title>
+  <meta name="description" content="Página de exemplo para testar o validador HTML">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-    header { background: #4361ee; color: white; padding: 1rem; border-radius: 8px; }
-    main { margin: 20px 0; }
-    footer { margin-top: 20px; padding: 1rem; background: #f5f5f5; border-radius: 8px; }
+    body { font-family: -apple-system, sans-serif; padding: 20px; }
+    .card { background: #f8f9fa; padding: 20px; border-radius: 8px; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Bem-vindo ao Testador HTML</h1>
-    <p>Esta é uma página de exemplo</p>
+    <h1>HTML Semântico</h1>
+    <p>Exemplo de código HTML válido e bem estruturado.</p>
   </header>
-  
   <main>
-    <section>
-      <h2>Sobre HTML</h2>
-      <p>HTML (HyperText Markup Language) é a linguagem de marcação padrão para criar páginas web.</p>
-      
-      <h3>Imagem com ALT correto:</h3>
-      <img src="https://via.placeholder.com/300x200" alt="Imagem de exemplo com placeholder" style="max-width:100%;">
-      
-      <h3>Links úteis:</h3>
-      <ul>
-        <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3Schools</a></li>
-      </ul>
+    <section class="card">
+      <h2>Boas Práticas</h2>
+      <p>Use tags semânticas para melhor acessibilidade e SEO.</p>
+      <img src="https://via.placeholder.com/400x200" alt="Imagem de exemplo com placeholder">
     </section>
   </main>
-  
   <footer>
-    <p>© 2026 - Exemplo de HTML válido</p>
-    <p>Esta página inclui todas as tags essenciais para uma boa pontuação.</p>
+    <p>© 2026 - Exemplo educativo</p>
   </footer>
 </body>
 </html>`;
-      
-      document.getElementById('htmlInput').value = exampleHTML;
-      setTimeout(() => analyzeHTML(), 500);
-    }
-    
-    // Google Analytics (opcional)
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'GA_MEASUREMENT_ID');
-  </script>
+            
+            document.getElementById('htmlInput').value = example;
+            setTimeout(() => {
+                if (typeof analyzeHTML === 'function') {
+                    analyzeHTML();
+                }
+            }, 100);
+        }
+
+        // Limpar editor
+        function clearEditor() {
+            document.getElementById('htmlInput').value = '';
+            document.getElementById('previewFrame').srcdoc = '';
+            document.getElementById('resultsList').innerHTML = `
+                <div class="result-item">
+                    <h3>Editor limpo</h3>
+                    <p>Cole novo código HTML para análise</p>
+                </div>
+            `;
+            document.getElementById('scoreBadge').textContent = '--/100';
+            localStorage.removeItem('htmlCode');
+        }
+
+        // Preview em tela cheia
+        function openPreview() {
+            const html = document.getElementById('htmlInput').value;
+            if (!html.trim()) {
+                alert('Cole algum código HTML primeiro');
+                return;
+            }
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Preview - Testador HTML</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>body { margin: 0; padding: 20px; }</style>
+                </head>
+                <body>${html}</body>
+                </html>
+            `);
+            win.document.close();
+        }
+
+        // Auto-salvar
+        const htmlInput = document.getElementById('htmlInput');
+        htmlInput.addEventListener('input', () => {
+            localStorage.setItem('htmlCode', htmlInput.value);
+        });
+        
+        // Carregar código salvo ao iniciar
+        window.addEventListener('load', () => {
+            const savedCode = localStorage.getItem('htmlCode');
+            if (savedCode) {
+                htmlInput.value = savedCode;
+                // Analisar automaticamente após 1 segundo
+                setTimeout(() => {
+                    if (typeof analyzeHTML === 'function') {
+                        analyzeHTML();
+                    }
+                }, 1000);
+            }
+        });
+    </script>
 </body>
 </html>
