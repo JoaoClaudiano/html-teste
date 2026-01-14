@@ -9,50 +9,10 @@
 <meta name="robots" content="index, follow" />
 <link rel="icon" href="/html-teste/favicon.svg" type="image/svg+xml">
 
+<link rel="stylesheet" href="css/styles.css">
+
 <style>
-/* Reset e globais */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: Arial, sans-serif; line-height:1.6; background:#f5f5f5; color:#222; min-height:100vh; display:flex; flex-direction:column; transition:0.3s ease; }
-a { color:#4361ee; text-decoration:none; transition:0.3s; }
-a:hover { text-decoration:underline; }
-
-/* Dark mode */
-body.dark { background:#121212; color:#e0e0e0; }
-body.dark a { color:#4cc9f0; }
-
-/* Cabeçalho */
-header.top { background:#111; color:#fff; padding:2rem 1rem; text-align:center; position:relative; }
-header.top h1 { font-size:2rem; margin-bottom:0.5rem; }
-header.top p { font-size:1.1rem; opacity:0.9; }
-.dark-toggle { position:absolute; top:1rem; right:1rem; padding:6px 12px; border:1px solid #fff; background:transparent; color:#fff; border-radius:4px; cursor:pointer; transition:0.3s; }
-.dark-toggle:hover { opacity:0.8; }
-
-/* Layout principal */
-.layout { display:grid; grid-template-columns:160px 1fr 160px; gap:16px; flex-grow:1; max-width:1400px; margin:auto; padding:1rem; }
-.ad { min-height:250px; background:transparent; }
-.center { padding:0 1rem; }
-@media(max-width:900px){ .layout { grid-template-columns:1fr; } .ad { display:none; } }
-
-/* Editor + Preview */
-.split { display:flex; gap:16px; margin-bottom:2rem; flex-wrap:wrap; }
-.editor, .preview { flex:1; display:flex; flex-direction:column; }
-.editor textarea { width:100%; height:200px; padding:10px; font-family:monospace; border:1px solid #ccc; border-radius:4px; background:#fff; color:#222; transition:0.3s; }
-body.dark .editor textarea { background:#1e1e1e; color:#e0e0e0; border:1px solid #333; }
-
-/* Botões */
-.editor-buttons, .preview button { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-button.analyze, button.clear, button.fullscreen {
-  padding:10px 18px; font-size:1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; min-width:120px; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:0.3s; text-align:center;
-}
-button.analyze { background:#4361ee; color:white; }
-button.analyze:hover { background:#3a56d4; transform:translateY(-2px); box-shadow:0 6px 12px rgba(67,97,238,0.3); }
-button.clear { background:#f72585; color:white; }
-button.clear:hover { background:#d41f6c; transform:translateY(-2px); box-shadow:0 6px 12px rgba(247,37,133,0.3); }
-button.fullscreen { background:#4cc9f0; color:#212529; }
-button.fullscreen:hover { background:#3bb3da; transform:translateY(-2px); box-shadow:0 6px 12px rgba(76,201,240,0.3); }
-body.dark button.fullscreen { color:#e0e0e0; }
-
-/* Links internos como cards */
+/* Estilos específicos do index.html que não estão no styles.css */
 .links-internos { margin-bottom:2rem; }
 .links-internos h2 { margin-bottom:1rem; font-size:1.3rem; color:#4361ee; }
 .links-internos .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
@@ -61,17 +21,27 @@ body.dark button.fullscreen { color:#e0e0e0; }
 .links-internos .card span { font-size:1.2rem; }
 body.dark .links-internos .card { background:#1e1e1e; }
 
-/* Resultados */
-.results { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:15px; margin-top:20px; }
-
-/* Rodapé */
-footer.footer { text-align:center; padding:2rem 1rem; background:#ddd; margin-top:2rem; }
-footer.footer a { margin:0 5px; color:#4361ee; }
-
-/* Botão subir ao topo */
-#backToTop { position:fixed; bottom:30px; right:30px; background:#4361ee; color:white; padding:10px 12px; border:none; border-radius:50%; cursor:pointer; font-size:1.25rem; display:none; z-index:1000; }
-#backToTop:hover { background:#3a56d4; }
-
+/* Botão de exemplo */
+button.example { 
+  background:#7209b7; 
+  color:white; 
+  padding:10px 18px; 
+  font-size:1rem; 
+  font-weight:600; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  min-width:120px; 
+  box-shadow:0 4px 10px rgba(0,0,0,0.1); 
+  transition:0.3s; 
+  text-align:center; 
+  margin-top:10px;
+}
+button.example:hover { 
+  background:#5a0a9a; 
+  transform:translateY(-2px); 
+  box-shadow:0 6px 12px rgba(114,9,183,0.3); 
+}
 </style>
 </head>
 <body>
@@ -92,13 +62,14 @@ footer.footer a { margin:0 5px; color:#4361ee; }
         <textarea id="htmlInput" placeholder="Cole seu código HTML aqui..." aria-label="Editor de código HTML"></textarea>
         <div class="editor-buttons">
           <button class="analyze" onclick="analyzeHTML()">Analisar</button>
-          <button class="clear" onclick="document.getElementById('htmlInput').value = ''">Limpar</button>
+          <button class="clear" onclick="clearEditor()">Limpar</button>
+          <button class="example" onclick="loadExample()">Exemplo</button>
         </div>
       </section>
 
       <section class="preview">
         <h2 class="visually-hidden">Visualização do resultado</h2>
-        <iframe id="previewFrame" sandbox=""></iframe>
+        <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
         <button class="fullscreen" onclick="openPreview()">Abrir em tela cheia</button>
       </section>
     </section>
@@ -132,15 +103,87 @@ footer.footer a { margin:0 5px; color:#4361ee; }
 <script>
   // Dark mode toggle
   const toggle = document.getElementById("darkToggle");
-  if(localStorage.getItem("theme")==="dark"){ document.body.classList.add("dark"); toggle.textContent="☀️ Modo claro"; }
-  toggle.addEventListener("click",()=>{ document.body.classList.toggle("dark"); 
-    if(document.body.classList.contains("dark")){ localStorage.setItem("theme","dark"); toggle.textContent="☀️ Modo claro"; }
-    else{ localStorage.setItem("theme","light"); toggle.textContent="🌙 Modo escuro"; }
+  if(localStorage.getItem("theme")==="dark"){ 
+    document.body.classList.add("dark"); 
+    toggle.textContent="☀️ Modo claro"; 
+  }
+  toggle.addEventListener("click",()=>{ 
+    document.body.classList.toggle("dark"); 
+    if(document.body.classList.contains("dark")){ 
+      localStorage.setItem("theme","dark"); 
+      toggle.textContent="☀️ Modo claro"; 
+    } else { 
+      localStorage.setItem("theme","light"); 
+      toggle.textContent="🌙 Modo escuro"; 
+    }
   });
 
   // Botão subir ao topo
   const backToTop = document.getElementById("backToTop");
-  window.addEventListener("scroll",()=>{ if(window.scrollY>200){ backToTop.style.display="block"; } else{ backToTop.style.display="none"; }});
+  window.addEventListener("scroll",()=>{ 
+    if(window.scrollY>200){ 
+      backToTop.style.display="block"; 
+    } else { 
+      backToTop.style.display="none"; 
+    }
+  });
+
+  // Funções adicionais
+  function clearEditor() {
+    document.getElementById('htmlInput').value = '';
+    document.getElementById('previewFrame').srcdoc = '';
+    document.getElementById('results').innerHTML = '';
+    localStorage.removeItem('htmlCode');
+  }
+
+  function loadExample() {
+    const exampleHTML = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Página de Exemplo</title>
+  <meta name="description" content="Uma página HTML de exemplo para testar a ferramenta">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+    header { background: #4361ee; color: white; padding: 1rem; border-radius: 8px; }
+    main { margin: 20px 0; }
+    footer { margin-top: 20px; padding: 1rem; background: #f5f5f5; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo ao Testador HTML</h1>
+    <p>Esta é uma página de exemplo</p>
+  </header>
+  
+  <main>
+    <section>
+      <h2>Sobre HTML</h2>
+      <p>HTML (HyperText Markup Language) é a linguagem de marcação padrão para criar páginas web.</p>
+      
+      <h3>Imagem com ALT correto:</h3>
+      <img src="https://via.placeholder.com/300x200" alt="Imagem de exemplo com placeholder" style="max-width:100%;">
+      
+      <h3>Links úteis:</h3>
+      <ul>
+        <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a></li>
+        <li><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3Schools</a></li>
+      </ul>
+    </section>
+  </main>
+  
+  <footer>
+    <p>© 2026 - Exemplo de HTML válido</p>
+    <p>Esta página inclui todas as tags essenciais para uma boa pontuação.</p>
+  </footer>
+</body>
+</html>`;
+    
+    document.getElementById('htmlInput').value = exampleHTML;
+    // Analisar automaticamente após carregar o exemplo
+    setTimeout(() => analyzeHTML(), 500);
+  }
 </script>
 
 </body>
