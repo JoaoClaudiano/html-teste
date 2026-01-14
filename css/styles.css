@@ -1,291 +1,405 @@
-/* css/styles.css - Estilos principais para todo o site */
+/* css/styles.css - Versão mobile-first e minimalista */
 
-/* 1. Reset e variáveis */
-:root {
-  --primary: #4361ee;
-  --primary-dark: #3a56d4;
-  --secondary: #7209b7;
-  --accent: #f72585;
-  --accent-dark: #d41f6c;
-  --light: #f8f9fa;
-  --dark: #212529;
-  --bg-light: #f5f5f5;
-  --bg-dark: #121212;
-  --text-light: #222;
-  --text-dark: #e0e0e0;
-  --card-light: #ffffff;
-  --card-dark: #1e1e1e;
-  --border-light: #ccc;
-  --border-dark: #333;
-  --header-light: #111;
-  --header-dark: #000;
-  --header-text: #fff;
-  --footer-light: #ddd;
-  --footer-dark: #1a1a1a;
-}
-
+/* 1. Reset minimalista */
 * { 
   margin: 0; 
   padding: 0; 
   box-sizing: border-box; 
 }
 
-/* 2. Estilos gerais */
+:root {
+  --primary: #4361ee;
+  --primary-light: #5d7bf0;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --accent: #f72585;
+  --light: #ffffff;
+  --dark: #1a1a1a;
+  --gray-light: #f8f9fa;
+  --gray: #e9ecef;
+  --gray-dark: #6c757d;
+  --text: #212529;
+  --text-light: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --radius: 8px;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background: var(--bg-light);
-  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--gray-light);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  transition: 0.3s ease;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
+  --light: #121212;
+  --gray-light: #1e1e1e;
+  --gray: #2d2d2d;
+  --gray-dark: #adb5bd;
+  --text: #e0e0e0;
+  --dark: #f8f9fa;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-a {
-  color: var(--primary);
-  text-decoration: none;
-  transition: 0.3s;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-/* 3. Cabeçalho */
-header.top {
-  background: var(--header-light);
-  color: var(--header-text);
-  padding: 2rem 1rem;
-  text-align: center;
-  position: relative;
-}
-header.top h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-header.top p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-body.dark header.top {
-  background: var(--header-dark);
+/* 2. Layout mobile-first */
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
 }
 
-.dark-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 6px 12px;
-  border: 1px solid var(--header-text);
-  background: transparent;
-  color: var(--header-text);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.dark-toggle:hover {
-  opacity: 0.8;
+/* 3. Cabeçalho minimalista */
+.header {
+  background: var(--primary);
+  color: var(--text-light);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* 4. Layout principal */
-.layout {
-  display: grid;
-  grid-template-columns: 160px 1fr 160px;
-  gap: 16px;
-  flex-grow: 1;
-  max-width: 1400px;
-  margin: auto;
-  padding: 1rem;
-}
-
-.ad {
-  min-height: 250px;
-  background: transparent;
-}
-
-.center {
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 1rem;
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-  .ad {
-    display: none;
-  }
-}
-
-/* 5. Editor + Preview */
-.split {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.editor, .preview {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-}
-
-.editor textarea {
-  width: 100%;
-  height: 200px;
-  padding: 10px;
-  font-family: monospace;
-  border: 1px solid var(--border-light);
-  border-radius: 4px;
-  background: var(--card-light);
-  color: var(--text-light);
-  transition: 0.3s;
-  resize: vertical;
-}
-
-body.dark .editor textarea {
-  background: var(--card-dark);
-  color: var(--text-dark);
-  border: 1px solid var(--border-dark);
-}
-
-/* 6. Botões */
-.editor-buttons, .preview button {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-button.analyze, button.clear, button.fullscreen {
-  padding: 10px 18px;
-  font-size: 1rem;
+.header h1 {
+  font-size: 1.2rem;
   font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  min-width: 120px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: 0.3s;
-  text-align: center;
+  margin: 0;
 }
 
-button.analyze {
+/* 4. Botão dark mode discreto */
+.dark-toggle {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--text-light);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.dark-toggle:hover {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.05);
+}
+
+/* 5. Main content */
+.main-content {
+  padding: 1.5rem 0;
+}
+
+/* 6. Editor area - layout vertical no mobile */
+.editor-section {
+  background: var(--light);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+textarea.code-input {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--gray-light);
+  border: 1px solid var(--gray);
+  border-radius: var(--radius);
+  color: var(--text);
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+textarea.code-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+/* 7. Botões compactos e funcionais */
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
   background: var(--primary);
   color: white;
 }
-button.analyze:hover {
+
+.btn-primary:hover {
   background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(67,97,238,0.3);
+  transform: translateY(-1px);
 }
 
-button.clear {
+.btn-secondary {
+  background: var(--gray);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-dark);
+  color: white;
+}
+
+.btn-accent {
   background: var(--accent);
   color: white;
 }
-button.clear:hover {
-  background: var(--accent-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(247,37,133,0.3);
+
+.btn-accent:hover {
+  opacity: 0.9;
 }
 
-button.fullscreen {
-  background: #4cc9f0;
-  color: var(--dark);
-}
-button.fullscreen:hover {
-  background: #3bb3da;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(76,201,240,0.3);
-}
-body.dark button.fullscreen {
-  color: var(--text-dark);
+/* 8. Preview minimalista */
+.preview-section {
+  background: var(--light);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
 }
 
-/* 7. Preview iframe */
-#previewFrame {
+.preview-container {
   width: 100%;
   height: 300px;
-  border: 1px solid var(--border-light);
-  border-radius: 4px;
-  background: var(--card-light);
-  margin-top: 10px;
-}
-body.dark #previewFrame {
-  background: var(--card-dark);
-  border-color: var(--border-dark);
+  border: 1px solid var(--gray);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
 }
 
-/* 8. Resultados */
-.results {
+#previewFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+/* 9. Seção de dicas - mais discreta */
+.tips-section {
+  margin-bottom: 2rem;
+}
+
+.tips-section h2 {
+  font-size: 1rem;
+  color: var(--gray-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.tips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
 }
 
-.card {
-  background: var(--card-light);
-  padding: 15px;
-  border-left: 6px solid #999;
+.tip-item {
+  background: var(--light);
+  border: 1px solid var(--gray);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tip-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.tip-item code {
+  background: var(--gray-light);
+  padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-body.dark .card {
-  background: var(--card-dark);
-}
-.card.ok { border-color: #4CAF50; }
-.card.warn { border-color: #FF9800; }
-.card.error { border-color: #F44336; }
-.card h3 { margin-bottom: 8px; }
-.card p { margin-bottom: 5px; }
-.card small { color: #666; font-size: 0.8rem; }
-body.dark .card small { color: #aaa; }
-
-/* 9. Rodapé */
-footer.footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  background: var(--footer-light);
-  margin-top: 2rem;
-}
-footer.footer a {
-  margin: 0 5px;
+  font-size: 0.8rem;
   color: var(--primary);
 }
-body.dark footer.footer {
-  background: var(--footer-dark);
+
+/* 10. Resultados minimalistas */
+.results-section {
+  background: var(--light);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
 }
 
-/* 10. Botão subir ao topo */
-#backToTop {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
+.score-badge {
+  display: inline-block;
   background: var(--primary);
   color: white;
-  padding: 10px 12px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.25rem;
-  display: none;
-  z-index: 1000;
-  transition: 0.3s;
-}
-#backToTop:hover {
-  background: var(--primary-dark);
-  transform: scale(1.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
-/* 11. Acessibilidade */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.result-item {
+  padding: 1rem;
+  border-left: 4px solid var(--gray);
+  background: var(--gray-light);
+  border-radius: 4px;
+}
+
+.result-item.error { border-color: #dc3545; }
+.result-item.warning { border-color: #ffc107; }
+.result-item.success { border-color: #28a745; }
+
+.result-item h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.result-item p {
+  font-size: 0.85rem;
+  color: var(--gray-dark);
+  margin: 0;
+}
+
+/* 11. Footer minimalista */
+.footer {
+  background: var(--dark);
+  color: var(--text-light);
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: var(--gray-dark);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--text-light);
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: var(--gray-dark);
+}
+
+/* 12. Floating action button */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--primary);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.4);
+}
+
+/* 13. Media queries para desktop */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    padding: 0;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .main-content {
+    padding: 2rem 0;
+  }
+  
+  .actions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .tips-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+  
+  .editor-section,
+  .preview-section {
+    padding: 2rem;
+  }
+}
+
+/* 14. Utilitários */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -297,3 +411,11 @@ body.dark footer.footer {
   white-space: nowrap;
   border: 0;
 }
+
+.text-center { text-align: center; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
