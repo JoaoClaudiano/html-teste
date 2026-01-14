@@ -95,10 +95,16 @@ body.dark {
 }
 
 /* ===== SPLIT VIEW (EDITOR + PREVIEW) ===== */
-.center.split {
+.split {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================
