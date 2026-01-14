@@ -1,17 +1,20 @@
 const fs = require("fs");
 
-const baseUrl = "https://seusite.com";
+const baseUrl = "https://joaoclaudiano.github.io/html-teste/";
+
 const pages = [];
 
-// index
+// Home
 pages.push(`${baseUrl}/`);
 
-// erros
-fs.readdirSync("erros").forEach(file => {
-  if (file.endsWith(".html")) {
-    pages.push(`${baseUrl}/erros/${file.replace(".html", "")}`);
-  }
-});
+// Páginas de erro
+if (fs.existsSync("erros")) {
+  fs.readdirSync("erros").forEach(file => {
+    if (file.endsWith(".html")) {
+      pages.push(`${baseUrl}/erros/${file.replace(".html", "")}`);
+    }
+  });
+}
 
 let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
@@ -29,4 +32,4 @@ sitemap += `\n</urlset>`;
 
 fs.writeFileSync("sitemap.xml", sitemap);
 
-console.log("sitemap.xml gerado com sucesso");
+console.log("sitemap.xml criado com sucesso!");
