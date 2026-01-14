@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "img-sem-alt",
+    "title": "Imagem sem ALT no HTML",
+    "description": "Aprenda o que significa o erro de imagem sem atributo ALT no HTML e como corrigir para melhorar acessibilidade e SEO.",
+    "problem": "Imagens sem o atributo ALT não podem ser interpretadas corretamente por leitores de tela.",
+    "impact": [
+      "Prejudica acessibilidade",
+      "Afeta SEO",
+      "Reduz a qualidade do código"
+    ],
+    "solution": "<img src=\"foto.jpg\" alt=\"Descrição da imagem\">"
+  },
+  {
+    "slug": "html-sem-lang",
+    "title": "HTML sem atributo lang",
+    "description": "Entenda por que definir o atributo lang no HTML é essencial para acessibilidade e boas práticas.",
+    "problem": "A ausência do atributo lang impede que leitores de tela identifiquem o idioma da página.",
+    "impact": [
+      "Problemas de acessibilidade",
+      "SEO prejudicado",
+      "Experiência ruim para leitores de tela"
+    ],
+    "solution": "<html lang=\"pt-BR\">"
+  }
+]
