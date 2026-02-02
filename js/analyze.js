@@ -232,3 +232,69 @@ function openFullscreen() {
     `);
     newWindow.document.close();
 }
+
+// Novas funções de verificação
+function checkDoctype(html) {
+    return html.includes('<!DOCTYPE html>');
+}
+
+function checkViewport(html) {
+    const viewportRegex = /<meta[^>]*name=["']viewport["'][^>]*>/i;
+    return viewportRegex.test(html);
+}
+
+function checkHeadingHierarchy(html) {
+    const headings = html.match(/<h[1-6][^>]*>.*?<\/h[1-6]>/gi) || [];
+    let lastLevel = 0;
+    let hasError = false;
+    
+    headings.forEach(heading => {
+        const level = parseInt(heading.match(/<h([1-6])/i)[1]);
+        if (level > lastLevel + 1) hasError = true;
+        lastLevel = level;
+    });
+    
+    return !hasError;
+}
+
+function checkMultipleH1(html) {
+    const h1Count = (html.match(/<h1[^>]*>.*?<\/h1>/gi) || []).length;
+    return h1Count <= 1;
+}
+
+function checkEmptyLinks(html) {
+    const linkRegex = /<a\b[^>]*>(.*?)<\/a>/gi;
+    let match;
+    let emptyLinks = 0;
+    
+    while ((match = linkRegex.exec(html)) !== null) {
+        const content = match[1].replace(/<[^>]*>/g, '').trim();
+        const hasAriaLabel = match[0].includes('aria-label=');
+        if (content === '' && !hasAriaLabel) emptyLinks++;
+    }
+    
+    return emptyLinks === 0;
+}
+
+function checkFormLabels(html) {
+    const inputRegex = /<input[^>]*>/gi;
+    const textareaRegex = /<textarea[^>]*>/gi;
+    const selectRegex = /<select[^>]*>/gi;
+    
+    const inputs = html.match(inputRegex) || [];
+    const textareas = html.match(textareaRegex) || [];
+    const selects = html.match(selectRegex) || [];
+    
+    const allFields = [...inputs, ...textareas, ...selects];
+    let unlabeledFields = 0;
+    
+    allFields.forEach(field => {
+        const hasId = field.includes('id="');
+        const hasAriaLabel = field.includes('aria-label="');
+        const hasLabel = html.includes(`for="${field.match(/id="([^"]*)"/)?.[1] || ''}"`);
+        
+        if (!hasAriaLabel && !hasLabel) unlabeledFields++;
+    });
+    
+    return unlabeledFields === 0;
+}
