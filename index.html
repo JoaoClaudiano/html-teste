@@ -1494,17 +1494,15 @@ p {
             const savedCss = localStorage.getItem('cssCode');
             const savedJs = localStorage.getItem('jsCode');
 
-            // Only override defaults if we have saved code
-            if (savedHtml || savedCss || savedJs) {
-                if (state.isMobile) {
-                    if (savedHtml && editors.mobileHtml) editors.mobileHtml.setValue(savedHtml);
-                    if (savedCss && editors.mobileCss) editors.mobileCss.setValue(savedCss);
-                    if (savedJs && editors.mobileJs) editors.mobileJs.setValue(savedJs);
-                } else {
-                    if (savedHtml && editors.html) editors.html.setValue(savedHtml);
-                    if (savedCss && editors.css) editors.css.setValue(savedCss);
-                    if (savedJs && editors.js) editors.js.setValue(savedJs);
-                }
+            // Override defaults with saved code if available
+            if (state.isMobile) {
+                if (savedHtml && editors.mobileHtml) editors.mobileHtml.setValue(savedHtml);
+                if (savedCss && editors.mobileCss) editors.mobileCss.setValue(savedCss);
+                if (savedJs && editors.mobileJs) editors.mobileJs.setValue(savedJs);
+            } else {
+                if (savedHtml && editors.html) editors.html.setValue(savedHtml);
+                if (savedCss && editors.css) editors.css.setValue(savedCss);
+                if (savedJs && editors.js) editors.js.setValue(savedJs);
             }
         }
 
