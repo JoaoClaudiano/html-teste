@@ -701,7 +701,7 @@
                 </div>
             </div>
             <div class="preview-frame-wrapper">
-                <iframe id="mobile-preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+                <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
             </div>
         </div>
         
@@ -1051,6 +1051,12 @@ console.log('JavaScript carregado com sucesso!');`
                     js: editors.js ? editors.js.getValue() : ''
                 };
             }
+            
+            // Injetar no iframe usando srcdoc
+            elements.previewFrame.srcdoc = fullCode;
+            
+            // Analisar código
+            analyzeCode();
         }
 
         // Set code to active editors
