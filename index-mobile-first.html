@@ -559,13 +559,13 @@
             </div>
             <div class="preview-carousel" id="preview-carousel">
                 <div class="preview-device" data-device="mobile">
-                    <iframe class="preview-frame" id="preview-mobile" sandbox="allow-scripts allow-same-origin"></iframe>
+                    <iframe class="preview-frame" id="preview-mobile" sandbox="allow-scripts"></iframe>
                 </div>
                 <div class="preview-device" data-device="tablet">
-                    <iframe class="preview-frame" id="preview-tablet" sandbox="allow-scripts allow-same-origin"></iframe>
+                    <iframe class="preview-frame" id="preview-tablet" sandbox="allow-scripts"></iframe>
                 </div>
                 <div class="preview-device" data-device="desktop">
-                    <iframe class="preview-frame" id="preview-desktop" sandbox="allow-scripts allow-same-origin"></iframe>
+                    <iframe class="preview-frame" id="preview-desktop" sandbox="allow-scripts"></iframe>
                 </div>
             </div>
         </div>
@@ -768,10 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             ['mobile', 'tablet', 'desktop'].forEach(device => {
                 const iframe = document.getElementById(`preview-${device}`);
-                const doc = iframe.contentDocument || iframe.contentWindow.document;
-                doc.open();
-                doc.write(fullCode);
-                doc.close();
+                iframe.srcdoc = fullCode;
             });
         }
         
