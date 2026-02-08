@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <div class="preview-frame-wrapper">
-                <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
+                <iframe id="preview-frame" sandbox="allow-scripts"></iframe>
             </div>
         </div>
         
@@ -921,12 +921,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             }
             
-            // Injetar no iframe
-            const iframe = elements.previewFrame;
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write(fullCode);
-            iframeDoc.close();
+            // Injetar no iframe usando srcdoc
+            elements.previewFrame.srcdoc = fullCode;
             
             // Analisar código
             analyzeCode();
