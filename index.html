@@ -249,7 +249,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            padding: 20px;
+            padding: 20px 20px 20px 60px; /* Extra padding à esquerda para line numbers */
             background: var(--bg-secondary);
             color: var(--text-primary);
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -261,6 +261,27 @@
             top: 0;
             left: 0;
             display: none;
+            tab-size: 4;
+            -moz-tab-size: 4;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+            /* Syntax highlighting com sombras sutis */
+            text-shadow: 0 0 1px rgba(0,0,0,0.1);
+        }
+        
+        /* Estilo específico para modo escuro */
+        body.dark-theme .editor {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            /* Cores para syntax highlighting básico */
+            caret-color: #aeafad;
+        }
+        
+        /* Estilo específico para modo claro */
+        body:not(.dark-theme) .editor {
+            background: #ffffff;
+            color: #24292e;
         }
         
         .editor.active {
@@ -700,7 +721,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentLang: 'html',
             isModular: false,
             currentViewSize: 'desktop',
-            theme: localStorage.getItem('theme') || 'light',
+            theme: localStorage.getItem('theme') || 'dark', // Dark mode por padrão
             autoSave: true,
             debounceTimer: null
         };
@@ -730,7 +751,67 @@ document.addEventListener('DOMContentLoaded', function() {
             loadFromLocalStorage();
             applyTheme();
             setupEventListeners();
+            setupLineNumbers(); // Adicionar números de linha
             executeCode(); // Executa inicialmente
+        }
+        
+        // Adicionar números de linha aos editores
+        function setupLineNumbers() {
+            [elements.htmlEditor, elements.cssEditor, elements.jsEditor].forEach(editor => {
+                createLineNumbers(editor);
+                
+                // Atualizar números ao digitar
+                editor.addEventListener('input', () => updateLineNumbers(editor));
+                editor.addEventListener('scroll', () => syncLineNumbersScroll(editor));
+            });
+        }
+        
+        // Criar overlay de números de linha
+        function createLineNumbers(editor) {
+            const lineNumbersDiv = document.createElement('div');
+            lineNumbersDiv.className = 'line-numbers';
+            lineNumbersDiv.style.cssText = `
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 50px;
+                height: 100%;
+                background: var(--bg-tertiary);
+                border-right: 1px solid var(--border-color);
+                padding: 20px 10px;
+                text-align: right;
+                font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.6;
+                color: var(--text-secondary);
+                user-select: none;
+                pointer-events: none;
+                overflow: hidden;
+                z-index: 1;
+            `;
+            
+            editor.parentElement.insertBefore(lineNumbersDiv, editor);
+            updateLineNumbers(editor);
+        }
+        
+        // Atualizar números de linha
+        function updateLineNumbers(editor) {
+            const lineNumbersDiv = editor.parentElement.querySelector('.line-numbers');
+            if (!lineNumbersDiv) return;
+            
+            const lines = editor.value.split('\n').length;
+            const numbers = [];
+            for (let i = 1; i <= lines; i++) {
+                numbers.push(i);
+            }
+            lineNumbersDiv.textContent = numbers.join('\n');
+        }
+        
+        // Sincronizar scroll dos números de linha
+        function syncLineNumbersScroll(editor) {
+            const lineNumbersDiv = editor.parentElement.querySelector('.line-numbers');
+            if (!lineNumbersDiv) return;
+            lineNumbersDiv.scrollTop = editor.scrollTop;
         }
         
         // Event Listeners
