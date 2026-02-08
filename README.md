@@ -1,42 +1,76 @@
-# 🔍 Testador de HTML Online
+# 🔍 Testador HTML/CSS/JS - Ferramenta Web Completa
 
 ![HTML](https://img.shields.io/badge/HTML-Online_Testador-blue)
+![CSS](https://img.shields.io/badge/CSS-Editor-blue)
+![JavaScript](https://img.shields.io/badge/JavaScript-Editor-yellow)
 ![Status](https://img.shields.io/badge/Status-Production_Ready-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Uma **ferramenta gratuita e open-source** para testar, validar e visualizar código HTML em tempo real. Desenvolvido para **desenvolvedores web, estudantes e profissionais** que precisam validar código HTML rapidamente.
+Uma **ferramenta completa e gratuita** para testar, visualizar e analisar código **HTML, CSS e JavaScript** de forma integrada. Interface moderna com **abas verticais expansíveis** que permite editar cada linguagem separadamente com visualização em tempo real.
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Funcionalidades Principais
 
-- 📝 **Editor em Tempo Real**: Cole ou escreva código HTML e veja o resultado instantaneamente.  
-- 🔍 **Análise Inteligente**: Verifique erros comuns, acessibilidade e boas práticas de HTML.  
-- 🎯 **Pontuação Automática**: Receba uma pontuação de 0-100 baseada na qualidade do código.  
-- 📱 **Design Responsivo**: Funciona perfeitamente em desktops e dispositivos móveis.  
-- 🌙 **Modo Escuro**: Alternância entre temas claro e escuro.  
-- 🔄 **Layout Flexível**: Visualização lado a lado ou empilhada.  
-- 💾 **Auto-Save**: Código salvo automaticamente no navegador.
+### 🎨 Interface Moderna
+- **Abas Verticais Expansíveis**: Navegue entre editores HTML, CSS e JavaScript com animações suaves
+- **Layout de 3 Painéis**: Editor, Visualização e Análise lado a lado
+- **Tema Claro/Escuro**: Alterne entre temas com um clique
+- **Design Responsivo**: Interface adaptável para desktop, tablet e mobile
+
+### ✏️ Editores Integrados
+- **Editor HTML**: Código HTML com exemplos pré-carregados
+- **Editor CSS**: Estilos CSS com syntax highlighting
+- **Editor JavaScript**: Scripts interativos com execução em tempo real
+- **Auto-Save**: Salvamento automático no localStorage
+- **Debounce Inteligente**: Atualização suave com delay de 500ms
+
+### 🎯 Modos de Execução
+- **Modo Completo**: Executa HTML+CSS+JS integrados
+- **Modo Modular**: Executa apenas HTML da aba ativa
+- **Visualização Responsiva**: Teste em Mobile (375px), Tablet (768px) ou Desktop (100%)
+
+### 📊 Análise em Tempo Real
+- **Validação HTML**: DOCTYPE, charset, viewport, meta tags
+- **Checagem de Acessibilidade**: Atributos alt, tags semânticas
+- **Estatísticas do Código**: Contagem de elementos, classes, IDs, regras CSS e linhas JS
+- **Detecção de Problemas**: Feedback instantâneo sobre erros e sugestões
+
+### 🎁 Recursos Adicionais
+- **Exemplos Prontos**: Formulário, Card de Produto, Navegação Responsiva
+- **Copiar Código**: Copie o código completo com um clique
+- **Resetar**: Limpe todos os editores rapidamente
+- **Persistência**: Seus códigos são salvos localmente
 
 ---
 
 ## 🚀 Como Usar
 
-1. Acesse a ferramenta: [html-teste](https://joaoclaudiano.github.io/html-teste/)  
-2. Cole ou escreva seu código HTML na área de editor  
-3. Clique em **"Analisar"** para verificar seu código  
-4. Visualize os resultados na seção de análise  
-5. Experimente os exemplos disponíveis para testes rápidos  
+1. **Acesse**: [html-teste](https://joaoclaudiano.github.io/html-teste/)  
+2. **Edite**: Escolha uma aba (HTML, CSS ou JS) e escreva seu código
+3. **Execute**: Clique em "▶ Executar Tudo" ou use o modo "HTML Modular"
+4. **Visualize**: Veja o resultado em tempo real na área de preview
+5. **Analise**: Confira estatísticas e problemas no painel de análise
+6. **Experimente**: Use os exemplos pré-configurados para testes rápidos
+7. **Salve**: Seus códigos são salvos automaticamente no navegador
+
+### Atalhos Rápidos
+- **Abas**: Clique nos ícones 📄 🎨 ⚡ para alternar entre editores
+- **Hover**: Passe o mouse sobre as abas para ver os labels
+- **Tema**: Alterne entre claro/escuro com o botão 🌙/☀️
+- **View**: Teste responsividade com os botões 📱 📘 🖥️  
 
 ---
 
 ## 🛠 Tecnologias Utilizadas
 
-- **HTML5** - Estrutura semântica moderna  
-- **CSS3** - Design responsivo e flexível  
-- **JavaScript (ES6+)** - Lógica de análise e interatividade  
-- **Google Analytics 4** - Métricas de uso agregadas  
-- **GitHub Pages** - Hospedagem gratuita  
+- **HTML5** - Estrutura semântica moderna com CSS Grid/Flexbox
+- **CSS3** - Design responsivo, CSS Variables, animações suaves
+- **JavaScript (ES6+)** - Lógica de execução, análise e interatividade
+- **LocalStorage API** - Persistência de código no navegador
+- **Iframe Sandbox** - Execução segura e isolada de código
+- **Google Analytics 4** - Métricas de uso agregadas (opcional)
+- **GitHub Pages** - Hospedagem gratuita e confiável  
 
 ---
 
@@ -63,22 +97,31 @@ html-teste/
 
 ## 🔧 O Que a Ferramenta Analisa
 
-✅ **Estrutura básica**: DOCTYPE, html, head, body  
-✅ **Meta tags essenciais**: charset, viewport, description  
-✅ **Acessibilidade**: atributos `alt` em imagens  
-✅ **SEO básico**: título, meta description  
-✅ **Boas práticas**: tags semânticas, organização do código  
-✅ **Compatibilidade**: verificação de tags obsoletas  
+### Validações HTML
+✅ **DOCTYPE e Estrutura**: Verifica presença de DOCTYPE, html, head, body  
+✅ **Meta Tags Essenciais**: charset UTF-8, viewport, description, lang  
+✅ **SEO Básico**: Título da página, meta description  
+✅ **Acessibilidade**: Atributos `alt` em imagens, labels em formulários  
+✅ **HTML Semântico**: Uso de tags como header, nav, main, footer, article  
+✅ **Links Externos**: Verifica atributos rel em links externos
+
+### Estatísticas do Código
+📊 **Elementos HTML**: Contagem total de tags  
+📊 **Classes CSS**: Número de classes únicas utilizadas  
+📊 **IDs**: Contagem de IDs únicos  
+📊 **Regras CSS**: Total de regras CSS definidas  
+📊 **Linhas JavaScript**: Quantidade de linhas de código JS  
 
 ---
 
 ## 🎯 Público-Alvo
 
-- 👨‍🎓 Estudantes de HTML e desenvolvimento web  
-- 👨‍💻 Desenvolvedores que precisam validar código rapidamente  
-- 👩‍🏫 Professores de programação  
-- 🔧 Profissionais que desejam verificar qualidade do HTML  
-- 🚀 Iniciantes que estão aprendendo HTML  
+- 👨‍🎓 **Estudantes** de HTML, CSS, JavaScript e desenvolvimento web
+- 👨‍💻 **Desenvolvedores** que precisam testar código rapidamente
+- 👩‍🏫 **Professores** de programação e web design
+- 🔧 **Profissionais** que desejam verificar qualidade do código
+- 🚀 **Iniciantes** aprendendo desenvolvimento front-end
+- 🎨 **Designers** testando protótipos HTML/CSS  
 
 ---
 
@@ -93,43 +136,52 @@ Contribuições são bem-vindas!
 
 ## 📊 Status do Projeto
 
-✅ PRODUCTION READY - Versão 1.0 estável
+✅ **PRODUCTION READY** - Versão 2.0 completa e estável
 
 | Funcionalidade             | Status      |
 | -------------------------- | ----------- |
 | Editor HTML                | ✅ Completo |
-| Visualização em tempo real | ✅ Completo |
-| Sistema de análise         | ✅ Completo |
-| Design responsivo          | ✅ Completo |
-| SEO otimizado              | ✅ Completo |
-| Modo escuro                | ✅ Completo |
-| Páginas institucionais     | ✅ Completo |
-| Analytics integrado        | ✅ Completo |
+| Editor CSS                 | ✅ Completo |
+| Editor JavaScript          | ✅ Completo |
+| Abas Verticais Expansíveis | ✅ Completo |
+| Modo de Execução Completo  | ✅ Completo |
+| Modo HTML Modular          | ✅ Completo |
+| Visualização Responsiva    | ✅ Completo |
+| Sistema de Análise         | ✅ Completo |
+| Exemplos Pré-configurados  | ✅ Completo |
+| Dark/Light Theme           | ✅ Completo |
+| LocalStorage Save/Load     | ✅ Completo |
+| Design Responsivo          | ✅ Completo |
+| SEO Otimizado              | ✅ Completo |
 
  
 ---
 
 ## 📈 Roadmap
 
-v1.1: Análise de CSS inline
+**v2.1**: Análise avançada de CSS (especificidade, otimização)
 
-v1.2: Sistema de compartilhamento de código
+**v2.2**: Console JavaScript integrado para debug
 
-v1.3: Mais exemplos e templates
+**v2.3**: Exportação para arquivo HTML completo
 
-v2.0: Validação de HTML5 semântico avançado
+**v2.4**: Biblioteca de snippets customizáveis
+
+**v3.0**: Suporte a pré-processadores (Sass, TypeScript)
 
 ---
 
-## 🔒 Privacidade
+## 🔒 Privacidade e Segurança
 
 Esta ferramenta:
 
-✅ Não coleta informações pessoais
-✅ Não requer cadastro ou login
-✅ Não armazena código em servidores externos
-✅ Usa localStorage apenas no navegador
-✅ Google Analytics apenas para métricas agregadas
+✅ **Não coleta** informações pessoais  
+✅ **Não requer** cadastro ou login  
+✅ **Não armazena** código em servidores externos  
+✅ **Usa localStorage** apenas no navegador do usuário  
+✅ **Execução isolada** via iframe sandbox  
+✅ **Google Analytics** apenas para métricas agregadas (opcional)  
+✅ **Código aberto** - totalmente auditável
 
 ---
 
@@ -159,11 +211,35 @@ Testadores que reportam issues
 
 ## ⚠️ Aviso Legal
 
-Ferramenta educacional; não substitui validadores oficiais como o W3C Validator. Use como complemento ao desenvolvimento.
+Ferramenta educacional e de desenvolvimento. Não substitui validadores oficiais como o W3C Validator. Use como ferramenta complementar ao seu fluxo de desenvolvimento.
 
-⭐ Se este projeto te ajudou, considere dar uma estrela no GitHub!
-🐛 Encontrou um bug? Abra uma issue
-💡 Tem uma ideia? Compartilhe via issue ou pull request
+**Limitações conhecidas:**
+- Validação básica, não cobre todos os casos de uso
+- JavaScript executado em sandbox pode ter limitações
+- Imagens externas podem ser bloqueadas por CORS
 
-<div align="center"> <sub>Feito com ❤️ e muito HTML</sub><br> <sub>Última atualização: Janeiro 2026</sub> </div> ```
+---
+
+## 🌟 Destaques
+
+⭐ **Interface Moderna**: Design clean e profissional  
+⭐ **Zero Configuração**: Comece a usar imediatamente  
+⭐ **Totalmente Gratuito**: Sem limitações ou paywall  
+⭐ **Código Aberto**: Contribuições são bem-vindas  
+⭐ **Educacional**: Ótimo para aprendizado  
+
+---
+
+<div align="center">
+
+**Se este projeto te ajudou, considere dar uma ⭐ no GitHub!**
+
+🐛 [Reportar Bug](https://github.com/JoaoClaudiano/html-teste/issues) | 
+💡 [Sugerir Feature](https://github.com/JoaoClaudiano/html-teste/issues) | 
+🤝 [Contribuir](https://github.com/JoaoClaudiano/html-teste/pulls)
+
+<sub>Feito com ❤️ e muito código</sub><br>
+<sub>Última atualização: Fevereiro 2026</sub>
+
+</div>
 
