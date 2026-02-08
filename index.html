@@ -948,13 +948,13 @@ console.log('JavaScript carregado com sucesso!');`
         function initializeSplitJS() {
             if (state.isMobile) return;
 
-            // Split the 3 editor panels horizontally (side by side)
+            // Split the 3 editor panels vertically (stacked on top of each other)
             splitInstance = Split(['#html-panel', '#css-panel', '#js-panel'], {
                 sizes: [33.33, 33.33, 33.33],
                 minSize: 100,
                 gutterSize: 8,
-                cursor: 'col-resize',
-                direction: 'horizontal'
+                cursor: 'row-resize',
+                direction: 'vertical'
             });
 
             // Split editors container and preview horizontally (side by side)
@@ -1494,12 +1494,17 @@ p {
             const savedCss = localStorage.getItem('cssCode');
             const savedJs = localStorage.getItem('jsCode');
 
+            // Only override defaults if we have saved code
             if (savedHtml || savedCss || savedJs) {
-                setCode(
-                    savedHtml || defaultCode.html,
-                    savedCss || defaultCode.css,
-                    savedJs || defaultCode.js
-                );
+                if (state.isMobile) {
+                    if (savedHtml && editors.mobileHtml) editors.mobileHtml.setValue(savedHtml);
+                    if (savedCss && editors.mobileCss) editors.mobileCss.setValue(savedCss);
+                    if (savedJs && editors.mobileJs) editors.mobileJs.setValue(savedJs);
+                } else {
+                    if (savedHtml && editors.html) editors.html.setValue(savedHtml);
+                    if (savedCss && editors.css) editors.css.setValue(savedCss);
+                    if (savedJs && editors.js) editors.js.setValue(savedJs);
+                }
             }
         }
 
