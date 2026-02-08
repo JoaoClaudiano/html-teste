@@ -177,7 +177,7 @@
         /* Main Container */
         .main-container {
             display: flex;
-            height: calc(100vh - 61px);
+            height: calc(100vh - 125px); /* Adjusted for header */
             overflow: hidden;
         }
         
@@ -211,8 +211,37 @@
             font-size: 13px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 8px;
             color: var(--text-primary);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .editor-header:hover {
+            background: var(--border-color);
+        }
+        
+        .editor-header-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+        
+        .editor-panel.collapsed .editor-wrapper {
+            display: none;
+        }
+        
+        .editor-panel.collapsed {
+            flex: 0 0 auto;
         }
         
         .editor-wrapper {
@@ -399,6 +428,12 @@
             padding: 16px 20px;
             background: var(--bg-tertiary);
             border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .analysis-header:hover {
+            background: var(--border-color);
         }
         
         .analysis-header h3 {
@@ -406,7 +441,16 @@
             font-weight: 600;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 8px;
+        }
+        
+        .analysis-panel.collapsed .analysis-content {
+            display: none;
+        }
+        
+        .analysis-panel.collapsed {
+            flex: 0 0 auto;
         }
         
         .analysis-content {
@@ -573,39 +617,191 @@
             margin-bottom: 16px;
             opacity: 0.5;
         }
+        
+        /* Tooltip styles */
+        [data-tooltip] {
+            position: relative;
+        }
+        
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+        
+        /* Modern Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--tab-active) 0%, #0056b3 100%);
+            color: white;
+            padding: 16px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .site-header .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .site-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .site-header nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .site-header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        
+        .site-header nav a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .site-footer {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            padding: 30px 0 20px;
+            border-top: 2px solid var(--border-color);
+            margin-top: auto;
+        }
+        
+        .site-footer .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--tab-active);
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Hide tablet view button */
+        .view-size[data-size="tablet"] {
+            display: none;
+        }
+        
+        #preview-frame.tablet {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Modern Header -->
+    <header class="site-header">
+        <div class="container">
+            <h1>🔍 Testador HTML/CSS/JS</h1>
+            <nav>
+                <a href="/html-teste/">Início</a>
+                <a href="/html-teste/sobre.html">Sobre</a>
+                <a href="/html-teste/termos.html">Termos</a>
+                <a href="/html-teste/privacidade.html">Privacidade</a>
+            </nav>
+        </div>
+    </header>
+    
     <!-- Control Bar -->
     <div class="control-bar">
         <div class="control-group">
-            <button class="btn" id="run-all" title="Executar código completo (HTML+CSS+JS)">
+            <button class="btn" id="run-all" data-tooltip="Executar código completo (HTML+CSS+JS)">
                 ▶ Executar Tudo
             </button>
-            <label class="switch" title="Quando ativo, executa apenas o HTML da aba ativa">
+            <label class="switch" data-tooltip="Quando ativo, executa apenas o HTML da aba ativa">
                 <input type="checkbox" id="html-modular-toggle">
                 <span class="switch-slider"></span>
                 <span>HTML Modular</span>
             </label>
-            <button class="btn btn-danger" id="reset-btn" title="Limpar todos os editores">
+            <button class="btn btn-danger" id="reset-btn" data-tooltip="Limpar todos os editores">
                 🔄 Resetar
             </button>
         </div>
         
         <div class="control-group">
-            <select id="examples" title="Carregar exemplos pré-configurados">
+            <select id="examples" data-tooltip="Carregar exemplos pré-configurados">
                 <option value="">💡 Exemplos...</option>
                 <option value="form">Formulário Básico</option>
                 <option value="card">Card de Produto</option>
                 <option value="nav">Navegação Responsiva</option>
             </select>
-            <button class="btn btn-secondary" id="save-btn" title="Salvar código localmente">
+            <button class="btn btn-secondary" id="save-btn" data-tooltip="Salvar código localmente">
                 💾 Salvar
             </button>
-            <button class="btn btn-secondary" id="copy-btn" title="Copiar código completo">
+            <button class="btn btn-secondary" id="copy-btn" data-tooltip="Copiar código completo">
                 📋 Copiar
             </button>
-            <button class="btn btn-secondary" id="theme-toggle" title="Alternar tema claro/escuro">
+            <button class="btn btn-secondary" id="theme-toggle" data-tooltip="Alternar tema claro/escuro">
                 🌙 Tema
             </button>
         </div>
@@ -619,8 +815,11 @@
             <div class="editors-split-container" id="editors-split">
                 <!-- HTML Editor Panel -->
                 <div class="editor-panel" id="html-panel">
-                    <div class="editor-header">
-                        <span>📄</span> HTML
+                    <div class="editor-header" data-tooltip="Editor HTML - Clique para expandir/recolher">
+                        <div class="editor-header-title">
+                            <span>📄</span> HTML
+                        </div>
+                        <span class="accordion-icon">▼</span>
                     </div>
                     <div class="editor-wrapper">
                         <div id="html-editor"></div>
@@ -629,8 +828,11 @@
                 
                 <!-- CSS Editor Panel -->
                 <div class="editor-panel" id="css-panel">
-                    <div class="editor-header">
-                        <span>🎨</span> CSS
+                    <div class="editor-header" data-tooltip="Editor CSS - Clique para expandir/recolher">
+                        <div class="editor-header-title">
+                            <span>🎨</span> CSS
+                        </div>
+                        <span class="accordion-icon">▼</span>
                     </div>
                     <div class="editor-wrapper">
                         <div id="css-editor"></div>
@@ -639,8 +841,11 @@
                 
                 <!-- JS Editor Panel -->
                 <div class="editor-panel" id="js-panel">
-                    <div class="editor-header">
-                        <span>⚡</span> JavaScript
+                    <div class="editor-header" data-tooltip="Editor JavaScript - Clique para expandir/recolher">
+                        <div class="editor-header-title">
+                            <span>⚡</span> JavaScript
+                        </div>
+                        <span class="accordion-icon">▼</span>
                     </div>
                     <div class="editor-wrapper">
                         <div id="js-editor"></div>
@@ -651,11 +856,10 @@
             <!-- Right: Preview -->
             <div class="preview-container" id="preview-panel">
                 <div class="preview-header">
-                    <h2>👁️ Visualização</h2>
+                    <h2 data-tooltip="Visualização ao vivo do seu código">👁️ Visualização</h2>
                     <div class="view-controls">
-                        <button class="view-size" data-size="mobile" title="Visualização Mobile (375px)">📱</button>
-                        <button class="view-size" data-size="tablet" title="Visualização Tablet (768px)">📘</button>
-                        <button class="view-size active" data-size="desktop" title="Visualização Desktop (100%)">🖥️</button>
+                        <button class="view-size" data-size="mobile" data-tooltip="Visualização Mobile (375px)">📱</button>
+                        <button class="view-size active" data-size="desktop" data-tooltip="Visualização Desktop (100%)">🖥️</button>
                     </div>
                 </div>
                 <div class="preview-frame-wrapper">
@@ -693,11 +897,10 @@
         <!-- Preview Area (for mobile) -->
         <div class="preview-container mobile-preview">
             <div class="preview-header">
-                <h2>👁️ Visualização</h2>
+                <h2 data-tooltip="Visualização ao vivo do seu código">👁️ Visualização</h2>
                 <div class="view-controls">
-                    <button class="view-size" data-size="mobile" title="Visualização Mobile (375px)">📱</button>
-                    <button class="view-size" data-size="tablet" title="Visualização Tablet (768px)">📘</button>
-                    <button class="view-size active" data-size="desktop" title="Visualização Desktop (100%)">🖥️</button>
+                    <button class="view-size" data-size="mobile" data-tooltip="Visualização Mobile (375px)">📱</button>
+                    <button class="view-size active" data-size="desktop" data-tooltip="Visualização Desktop (100%)">🖥️</button>
                 </div>
             </div>
             <div class="preview-frame-wrapper">
@@ -707,8 +910,11 @@
         
         <!-- Analysis Panel -->
         <div class="analysis-panel">
-            <div class="analysis-header">
-                <h3>📊 Análise do Código</h3>
+            <div class="analysis-header" data-tooltip="Análise detalhada do código - Clique para expandir/recolher">
+                <h3>
+                    <span>📊 Análise do Código</span>
+                    <span class="accordion-icon">▼</span>
+                </h3>
             </div>
             <div class="analysis-content" id="analysis-content">
                 <div class="empty-state">
@@ -1015,6 +1221,43 @@ console.log('JavaScript carregado com sucesso!');`
             elements.viewSizeBtns.forEach(btn => {
                 btn.addEventListener('click', () => changeViewSize(btn.dataset.size));
             });
+            
+            // Accordion functionality for editor panels
+            document.querySelectorAll('.editor-panel .editor-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const panel = this.parentElement;
+                    const icon = this.querySelector('.accordion-icon');
+                    
+                    panel.classList.toggle('collapsed');
+                    if (icon) {
+                        icon.classList.toggle('collapsed');
+                    }
+                    
+                    // Refresh CodeMirror when expanding
+                    if (!panel.classList.contains('collapsed')) {
+                        setTimeout(() => {
+                            const panelId = panel.id;
+                            if (panelId === 'html-panel' && editors.html) editors.html.refresh();
+                            if (panelId === 'css-panel' && editors.css) editors.css.refresh();
+                            if (panelId === 'js-panel' && editors.js) editors.js.refresh();
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Accordion functionality for analysis panel
+            const analysisHeader = document.querySelector('.analysis-panel .analysis-header');
+            if (analysisHeader) {
+                analysisHeader.addEventListener('click', function() {
+                    const panel = this.parentElement;
+                    const icon = this.querySelector('.accordion-icon');
+                    
+                    panel.classList.toggle('collapsed');
+                    if (icon) {
+                        icon.classList.toggle('collapsed');
+                    }
+                });
+            }
         }
 
         // Switch mobile tab
@@ -1076,13 +1319,24 @@ console.log('JavaScript carregado com sucesso!');`
         function executeCode() {
             const code = getCode();
             
+            // Apply dark theme styles to preview if dark mode is active
+            const darkModeStyles = state.theme === 'dark' ? `
+                body {
+                    background-color: #1e1e1e;
+                    color: #e0e0e0;
+                }
+            ` : '';
+            
             const fullCode = `
                 <!DOCTYPE html>
                 <html lang="pt-BR">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <style>${code.css}</style>
+                    <style>
+                        ${darkModeStyles}
+                        ${code.css}
+                    </style>
                 </head>
                 <body>
                     ${code.html}
@@ -1550,6 +1804,7 @@ ${code.js}
             localStorage.setItem('theme', state.theme);
             applyTheme();
             updateEditorsTheme();
+            executeCode(); // Re-execute to apply theme to preview
         }
 
         // Apply theme
@@ -1596,5 +1851,38 @@ ${code.js}
         // Start application
         init();
     </script>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>📚 Recursos</h4>
+                    <ul>
+                        <li><a href="/html-teste/">Ferramenta</a></li>
+                        <li><a href="/html-teste/analytics.html">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>ℹ️ Institucional</h4>
+                    <ul>
+                        <li><a href="/html-teste/sobre.html">Sobre</a></li>
+                        <li><a href="/html-teste/termos.html">Termos de Uso</a></li>
+                        <li><a href="/html-teste/privacidade.html">Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>🔗 Links Úteis</h4>
+                    <ul>
+                        <li><a href="https://developer.mozilla.org/pt-BR/" target="_blank" rel="noopener noreferrer">MDN Web Docs</a></li>
+                        <li><a href="https://www.w3.org/" target="_blank" rel="noopener noreferrer">W3C</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Testador HTML/CSS/JS. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
