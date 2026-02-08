@@ -749,6 +749,7 @@
         // Elementos DOM
         const elements = {
             previewFrame: document.getElementById('preview-frame'),
+            mobilePreviewFrame: document.getElementById('mobile-preview-frame'),
             runAllBtn: document.getElementById('run-all'),
             resetBtn: document.getElementById('reset-btn'),
             modularToggle: document.getElementById('html-modular-toggle'),
@@ -945,7 +946,7 @@ console.log('JavaScript carregado com sucesso!');`
         function initializeSplitJS() {
             if (state.isMobile) return;
 
-            // Split the 3 editor panels vertically
+            // Split the 3 editor panels horizontally (side by side)
             splitInstance = Split(['#html-panel', '#css-panel', '#js-panel'], {
                 sizes: [33.33, 33.33, 33.33],
                 minSize: 100,
@@ -954,12 +955,12 @@ console.log('JavaScript carregado com sucesso!');`
                 direction: 'horizontal'
             });
 
-            // Split editors container and preview horizontally
+            // Split editors container and preview horizontally (side by side)
             mainSplitInstance = Split(['.editors-split-container', '#preview-panel'], {
                 sizes: [50, 50],
                 minSize: 200,
                 gutterSize: 8,
-                cursor: 'row-resize',
+                cursor: 'col-resize',
                 direction: 'horizontal'
             });
         }
@@ -1083,6 +1084,9 @@ console.log('JavaScript carregado com sucesso!');`
             `;
 
             elements.previewFrame.srcdoc = fullCode;
+            if (elements.mobilePreviewFrame) {
+                elements.mobilePreviewFrame.srcdoc = fullCode;
+            }
             analyzeHTML(code.html);
         }
 
