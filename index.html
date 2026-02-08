@@ -720,6 +720,9 @@
     </div>
 
     <script>
+        // Constants
+        const MOBILE_BREAKPOINT = 968;
+
         // Estado da aplicação
         const state = {
             currentLang: 'html',
@@ -728,7 +731,7 @@
             theme: localStorage.getItem('theme') || 'dark',
             autoSave: true,
             debounceTimer: null,
-            isMobile: window.innerWidth <= 968
+            isMobile: window.innerWidth <= MOBILE_BREAKPOINT
         };
 
         // CodeMirror instances
@@ -968,7 +971,7 @@ console.log('JavaScript carregado com sucesso!');`
         function setupResponsive() {
             window.addEventListener('resize', () => {
                 const wasMobile = state.isMobile;
-                state.isMobile = window.innerWidth <= 968;
+                state.isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
                 // Refresh CodeMirror on resize
                 if (state.isMobile) {
