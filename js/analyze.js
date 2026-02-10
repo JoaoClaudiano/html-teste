@@ -86,14 +86,12 @@ function performAnalysis(html) {
     
     // 5. Imagens sem ALT
     const images = doc.querySelectorAll('img');
-    let imagesWithoutAlt = 0;
-    images.forEach((img, index) => {
+    images.forEach((img, imgIndex) => {
         if (!img.hasAttribute('alt')) {
             score -= 6;
-            imagesWithoutAlt++;
             errors.push({
                 type: 'error',
-                title: `Imagem ${index + 1} sem atributo ALT`,
+                title: `Imagem ${imgIndex + 1} sem atributo ALT`,
                 message: 'Todas as imagens devem ter atributo alt para acessibilidade',
                 icon: '❌'
             });
