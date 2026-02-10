@@ -263,21 +263,126 @@ body.dark .results-container {
     color: var(--secondary);
 }
 
+/* Result Summary */
+.result-summary {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: var(--light);
+}
+
+body.dark .result-summary {
+    background: #2d2d2d;
+}
+
+.result-summary.success {
+    border-left: 4px solid var(--success);
+}
+
+.result-summary.warning {
+    border-left: 4px solid var(--warning);
+}
+
+.result-summary.error {
+    border-left: 4px solid var(--danger);
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.score-value {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.score-max {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.score-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.issue-counts {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.issue-counts span {
+    font-size: 0.9rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+}
+
+.error-count {
+    color: var(--danger);
+}
+
+.warning-count {
+    color: #856404;
+}
+
+.ok-count {
+    color: var(--success);
+}
+
+/* Result Items */
 .result-item {
     padding: 15px;
     margin-bottom: 10px;
     border-left: 4px solid var(--secondary);
     background: var(--light);
     border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
 }
 
 body.dark .result-item {
     background: #2d2d2d;
 }
 
-.result-item.error { border-color: var(--danger); }
-.result-item.warning { border-color: var(--warning); }
-.result-item.success { border-color: var(--success); }
+.result-item.error { 
+    border-color: var(--danger); 
+}
+
+.result-item.warning { 
+    border-color: var(--warning); 
+}
+
+.result-item.success { 
+    border-color: var(--success); 
+}
+
+.result-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.result-content {
+    flex: 1;
+}
 
 .result-item h3 {
     margin-bottom: 5px;
