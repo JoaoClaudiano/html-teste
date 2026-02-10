@@ -4,14 +4,14 @@ function analyzeHTML() {
     const preview = document.getElementById('previewFrame');
     const resultsContainer = document.getElementById('resultsContainer');
     
-    // Atualizar preview
+    // Atualizar preview usando sandbox e srcdoc para segurança
     if (html.trim()) {
         preview.srcdoc = html;
     } else {
         preview.srcdoc = '<div style="padding:20px;color:#666;">Nenhum código para visualizar</div>';
     }
     
-    // Análise
+    // Análise usando DOMParser
     const analysis = performAnalysis(html);
     displayResults(analysis);
     
@@ -21,157 +21,220 @@ function analyzeHTML() {
 
 function performAnalysis(html) {
     let score = 100;
-    const issues = [];
+    const errors = [];
+    const warnings = [];
     
-    // 1. DOCTYPE
-    if (!html.includes('<!DOCTYPE')) {
+    // Parse HTML usando DOMParser
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    
+    // 1. DOCTYPE (check via string since DOMParser adds it automatically)
+    if (!html.trim().toLowerCase().startsWith('<!doctype')) {
         score -= 15;
-        issues.push({
+        errors.push({
             type: 'error',
             title: 'DOCTYPE Ausente',
             message: 'Adicione <!DOCTYPE html> no início do documento',
-            fix: '<!DOCTYPE html>'
+            icon: '❌'
         });
     }
     
-    // 2. Charset
-    if (!html.includes('charset="UTF-8"') && !html.includes("charset='UTF-8'")) {
-        score -= 10;
-        issues.push({
-            type: 'error',
-            title: 'Charset não definido',
-            message: 'Adicione <meta charset="UTF-8">',
-            fix: '<meta charset="UTF-8">'
-        });
-    }
-    
-    // 3. Viewport
-    if (!html.includes('viewport')) {
-        score -= 8;
-        issues.push({
-            type: 'warning',
-            title: 'Viewport ausente',
-            message: 'Importante para mobile: <meta name="viewport" content="width=device-width, initial-scale=1.0">',
-            fix: '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-        });
-    }
-    
-    // 4. Title
-    const titleMatch = html.match(/<title>(.*?)<\/title>/i);
-    if (!titleMatch) {
+    // 2. Title tag
+    const titleElement = doc.querySelector('title');
+    if (!titleElement || !titleElement.textContent.trim()) {
         score -= 12;
-        issues.push({
+        errors.push({
             type: 'error',
             title: 'Título ausente',
-            message: 'Adicione <title>Sua Página</title>',
-            fix: '<title>Sua Página</title>'
+            message: 'Adicione <title>Sua Página</title> no <head>',
+            icon: '❌'
         });
-    } else if (titleMatch[1].trim().length < 5) {
+    } else if (titleElement.textContent.trim().length < 5) {
         score -= 5;
-        issues.push({
+        warnings.push({
             type: 'warning',
             title: 'Título muito curto',
-            message: 'O título deve ter pelo menos 5 caracteres',
-            fix: '<title>Título Descritivo da Página</title>'
+            message: 'O título deve ter pelo menos 5 caracteres para ser efetivo',
+            icon: '⚠️'
         });
     }
     
-    // 5. Meta description
-    if (!html.includes('name="description"')) {
+    // 3. Meta charset
+    const charsetMeta = doc.querySelector('meta[charset]');
+    if (!charsetMeta) {
+        score -= 10;
+        errors.push({
+            type: 'error',
+            title: 'Charset não definido',
+            message: 'Adicione <meta charset="UTF-8"> no <head>',
+            icon: '❌'
+        });
+    }
+    
+    // 4. Meta viewport
+    const viewportMeta = doc.querySelector('meta[name="viewport"]');
+    if (!viewportMeta) {
         score -= 8;
-        issues.push({
+        warnings.push({
+            type: 'warning',
+            title: 'Viewport ausente',
+            message: 'Adicione <meta name="viewport" content="width=device-width, initial-scale=1.0"> para responsividade',
+            icon: '⚠️'
+        });
+    }
+    
+    // 5. Imagens sem ALT
+    const images = doc.querySelectorAll('img');
+    images.forEach((img, imgIndex) => {
+        if (!img.hasAttribute('alt')) {
+            score -= 6;
+            errors.push({
+                type: 'error',
+                title: `Imagem ${imgIndex + 1} sem atributo ALT`,
+                message: 'Todas as imagens devem ter atributo alt para acessibilidade',
+                icon: '❌'
+            });
+        }
+    });
+    
+    // 6. H1 count (deve ter exatamente 1)
+    const h1Elements = doc.querySelectorAll('h1');
+    if (h1Elements.length === 0) {
+        score -= 10;
+        warnings.push({
+            type: 'warning',
+            title: 'Nenhum H1 encontrado',
+            message: 'Sua página deve ter exatamente um <h1> como título principal',
+            icon: '⚠️'
+        });
+    } else if (h1Elements.length > 1) {
+        score -= 8;
+        warnings.push({
+            type: 'warning',
+            title: `${h1Elements.length} H1 encontrados`,
+            message: 'Use apenas um <h1> por página. Use <h2> para subtítulos',
+            icon: '⚠️'
+        });
+    }
+    
+    // 7. Hierarquia de headings (h1 → h2 → h3)
+    const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+    let lastLevel = 0;
+    let hierarchyBroken = false;
+    
+    headings.forEach(heading => {
+        const level = parseInt(heading.tagName.substring(1));
+        if (lastLevel > 0 && level > lastLevel + 1) {
+            hierarchyBroken = true;
+        }
+        lastLevel = level;
+    });
+    
+    if (hierarchyBroken) {
+        score -= 8;
+        warnings.push({
+            type: 'warning',
+            title: 'Hierarquia de headings incorreta',
+            message: 'Não pule níveis de heading (ex: h1 → h3). Use h1 → h2 → h3 sequencialmente',
+            icon: '⚠️'
+        });
+    }
+    
+    // 8. Meta description (SEO)
+    const descriptionMeta = doc.querySelector('meta[name="description"]');
+    if (!descriptionMeta) {
+        score -= 6;
+        warnings.push({
             type: 'warning',
             title: 'Meta description ausente',
-            message: 'Importante para SEO: <meta name="description" content="Descrição da página">',
-            fix: '<meta name="description" content="Descrição da página">'
+            message: 'Adicione <meta name="description" content="..."> para melhorar SEO',
+            icon: '⚠️'
         });
     }
-    
-    // 6. Imagens sem ALT
-    const imgRegex = /<img[^>]*>/g;
-    const images = html.match(imgRegex) || [];
-    images.forEach((img, index) => {
-        if (!img.includes('alt=')) {
-            score -= 6;
-            issues.push({
-                type: 'error',
-                title: `Imagem ${index + 1} sem ALT`,
-                message: 'Adicione atributo alt descritivo',
-                fix: 'alt="descrição da imagem"'
-            });
-        }
-    });
-    
-    // 7. Tags semânticas
-    const semanticTags = ['<header', '<nav', '<main', '<article', '<section', '<aside', '<footer'];
-    const hasSemantic = semanticTags.some(tag => html.includes(tag));
-    
-    if (!hasSemantic && html.includes('<div')) {
-        score -= 5;
-        issues.push({
-            type: 'warning',
-            title: 'Poucas tags semânticas',
-            message: 'Use tags semânticas como header, nav, main, footer',
-            fix: '<header>, <nav>, <main>, <footer>'
-        });
-    }
-    
-    // 8. Links externos sem rel
-    const externalLinks = html.match(/<a[^>]*href=["'][^"']*["'][^>]*>/g) || [];
-    externalLinks.forEach(link => {
-        if (link.includes('http') && !link.includes('rel=')) {
-            score -= 4;
-            issues.push({
-                type: 'warning',
-                title: 'Link externo sem rel',
-                message: 'Para links externos: rel="noopener noreferrer"',
-                fix: 'rel="noopener noreferrer"'
-            });
-        }
-    });
     
     // 9. Lang attribute
-    if (!html.includes('lang=')) {
+    const htmlElement = doc.querySelector('html');
+    if (!htmlElement || !htmlElement.hasAttribute('lang')) {
         score -= 5;
-        issues.push({
+        warnings.push({
             type: 'warning',
-            title: 'Idioma não definido',
-            message: 'Adicione lang="pt-BR" na tag html',
-            fix: '<html lang="pt-BR">'
+            title: 'Atributo lang ausente',
+            message: 'Adicione lang="pt-BR" na tag <html> para acessibilidade',
+            icon: '⚠️'
         });
     }
+    
+    // 10. Tags semânticas
+    const semanticTags = doc.querySelectorAll('header, nav, main, article, section, aside, footer');
+    const divs = doc.querySelectorAll('div');
+    if (semanticTags.length === 0 && divs.length > 0) {
+        score -= 5;
+        warnings.push({
+            type: 'warning',
+            title: 'Poucas tags semânticas',
+            message: 'Use tags semânticas (header, nav, main, footer) em vez de apenas divs',
+            icon: '⚠️'
+        });
+    }
+    
+    // Consolidar issues (errors primeiro, depois warnings)
+    const issues = [...errors, ...warnings];
     
     // Garantir score entre 0 e 100
     score = Math.max(0, Math.min(100, score));
     
-    return { score, issues };
+    return { 
+        score, 
+        issues,
+        errorCount: errors.length,
+        warningCount: warnings.length
+    };
 }
 
 function displayResults(analysis) {
     const container = document.getElementById('resultsContainer');
-    const { score, issues } = analysis;
+    const { score, issues, errorCount, warningCount } = analysis;
     
+    // Cabeçalho com estatísticas
     let html = `
-        <div class="result-item ${score >= 90 ? 'success' : score >= 70 ? 'warning' : 'error'}">
-            <h3>Pontuação: ${score}/100</h3>
-            <p>${issues.length} ${issues.length === 1 ? 'problema encontrado' : 'problemas encontrados'}</p>
+        <div class="result-summary ${score >= 90 ? 'success' : score >= 70 ? 'warning' : 'error'}">
+            <div class="score-display">
+                <div class="score-circle">
+                    <span class="score-value">${score}</span>
+                    <span class="score-max">/100</span>
+                </div>
+                <div class="score-info">
+                    <h3>${score >= 90 ? '✅ Excelente!' : score >= 70 ? '⚠️ Bom' : '❌ Precisa melhorar'}</h3>
+                    <div class="issue-counts">
+                        ${errorCount > 0 ? `<span class="error-count">❌ ${errorCount} ${errorCount === 1 ? 'erro' : 'erros'}</span>` : ''}
+                        ${warningCount > 0 ? `<span class="warning-count">⚠️ ${warningCount} ${warningCount === 1 ? 'aviso' : 'avisos'}</span>` : ''}
+                        ${errorCount === 0 && warningCount === 0 ? '<span class="ok-count">✅ Nenhum problema encontrado</span>' : ''}
+                    </div>
+                </div>
+            </div>
         </div>
     `;
     
+    // Lista de problemas
     if (issues.length === 0) {
         html += `
             <div class="result-item success">
-                <h3>✅ HTML Excelente!</h3>
-                <p>Seu código está bem estruturado e segue as melhores práticas.</p>
+                <span class="result-icon">✅</span>
+                <div class="result-content">
+                    <h3>HTML Excelente!</h3>
+                    <p>Seu código está bem estruturado e segue as melhores práticas de desenvolvimento web.</p>
+                </div>
             </div>
         `;
     } else {
         issues.forEach(issue => {
             html += `
                 <div class="result-item ${issue.type}">
-                    <h3>${issue.title}</h3>
-                    <p>${issue.message}</p>
-                    <p><strong>Solução:</strong> ${issue.fix}</p>
+                    <span class="result-icon">${issue.icon}</span>
+                    <div class="result-content">
+                        <h3>${issue.title}</h3>
+                        <p>${issue.message}</p>
+                    </div>
                 </div>
             `;
         });

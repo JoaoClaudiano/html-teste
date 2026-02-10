@@ -365,16 +365,110 @@
             gap: 10px;
         }
         
+        /* Result Summary */
+        .result-summary {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: var(--light);
+        }
+        
+        .result-summary.success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .result-summary.warning {
+            border-left: 4px solid #ffc107;
+        }
+        
+        .result-summary.error {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .score-value {
+            font-size: 2rem;
+            line-height: 1;
+        }
+        
+        .score-max {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .score-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        .issue-counts {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .issue-counts span {
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .error-count {
+            color: #dc3545;
+        }
+        
+        .warning-count {
+            color: #856404;
+        }
+        
+        .ok-count {
+            color: #28a745;
+        }
+        
+        /* Result Items */
         .result-item {
             padding: 12px 15px;
             border-left: 4px solid var(--secondary);
             background: var(--light);
             border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
         }
         
         .result-item.error { border-color: #dc3545; }
         .result-item.warning { border-color: #ffc107; }
         .result-item.success { border-color: #28a745; }
+        
+        .result-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .result-content {
+            flex: 1;
+        }
         
         .result-item h3 {
             font-size: 0.95rem;
@@ -748,107 +842,256 @@
         const preview = document.getElementById('previewFrame');
         const resultsContainer = document.getElementById('resultsContainer');
         
-        // Atualizar preview
+        // Atualizar preview usando sandbox e srcdoc para segurança
         preview.srcdoc = html || '<div style="padding:20px;color:#666;">Nenhum código para visualizar</div>';
         
-        // Análise básica
-        let score = 100;
-        const issues = [];
-        
-        if (html.trim()) {
-            // DOCTYPE
-            if (!html.includes('<!DOCTYPE')) {
-                score -= 15;
-                issues.push({
-                    type: 'error',
-                    title: 'Falta DOCTYPE',
-                    message: 'Adicione <!DOCTYPE html> no início do documento'
-                });
-            }
-            
-            // Charset
-            if (!html.includes('charset="UTF-8"') && !html.includes("charset='UTF-8'")) {
-                score -= 10;
-                issues.push({
-                    type: 'error',
-                    title: 'Charset não definido',
-                    message: 'Adicione <meta charset="UTF-8">'
-                });
-            }
-            
-            // Title
-            if (!html.includes('<title>')) {
-                score -= 12;
-                issues.push({
-                    type: 'error',
-                    title: 'Sem título',
-                    message: 'Adicione <title>Sua Página</title>'
-                });
-            }
-            
-            // Imagens sem ALT
-            const imgTags = html.match(/<img[^>]*>/g) || [];
-            imgTags.forEach(tag => {
-                if (!tag.includes('alt=')) {
-                    score -= 8;
-                    issues.push({
-                        type: 'error',
-                        title: 'Imagem sem ALT',
-                        message: 'Adicione atributo alt às imagens'
-                    });
-                }
-            });
-            
-            // Viewport
-            if (!html.includes('viewport')) {
-                score -= 8;
-                issues.push({
-                    type: 'warning',
-                    title: 'Viewport ausente',
-                    message: 'Adicione meta viewport para mobile'
-                });
-            }
-            
-            score = Math.max(0, score);
-        }
-        
-        // Mostrar resultados
-        if (issues.length === 0 && html.trim()) {
-            resultsContainer.innerHTML = `
-                <div class="result-item success">
-                    <h3>✅ HTML válido! Pontuação: ${score}/100</h3>
-                    <p>Nenhum problema encontrado. Seu código está bem estruturado.</p>
-                </div>
-            `;
-        } else if (!html.trim()) {
-            resultsContainer.innerHTML = `
-                <div class="result-item warning">
-                    <h3>Editor vazio</h3>
-                    <p>Cole algum código HTML para análise</p>
-                </div>
-            `;
-        } else {
-            let resultsHTML = `
-                <div class="result-item ${score >= 70 ? 'warning' : 'error'}">
-                    <h3>Pontuação: ${score}/100</h3>
-                    <p>${issues.length} ${issues.length === 1 ? 'problema encontrado' : 'problemas encontrados'}</p>
-                </div>
-            `;
-            
-            issues.forEach(issue => {
-                resultsHTML += `
-                    <div class="result-item ${issue.type}">
-                        <h3>${issue.title}</h3>
-                        <p>${issue.message}</p>
-                    </div>
-                `;
-            });
-            
-            resultsContainer.innerHTML = resultsHTML;
-        }
+        // Análise usando DOMParser
+        const analysis = performAnalysis(html);
+        displayResults(analysis);
         
         // Salvar código
         localStorage.setItem('savedHTML', html);
+    }
+    
+    function performAnalysis(html) {
+        let score = 100;
+        const errors = [];
+        const warnings = [];
+        
+        if (!html.trim()) {
+            return { score: 0, issues: [], errorCount: 0, warningCount: 0 };
+        }
+        
+        // Parse HTML usando DOMParser
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // 1. DOCTYPE (check via string since DOMParser adds it automatically)
+        if (!html.trim().toLowerCase().startsWith('<!doctype')) {
+            score -= 15;
+            errors.push({
+                type: 'error',
+                title: 'DOCTYPE Ausente',
+                message: 'Adicione <!DOCTYPE html> no início do documento',
+                icon: '❌'
+            });
+        }
+        
+        // 2. Title tag
+        const titleElement = doc.querySelector('title');
+        if (!titleElement || !titleElement.textContent.trim()) {
+            score -= 12;
+            errors.push({
+                type: 'error',
+                title: 'Título ausente',
+                message: 'Adicione <title>Sua Página</title> no <head>',
+                icon: '❌'
+            });
+        } else if (titleElement.textContent.trim().length < 5) {
+            score -= 5;
+            warnings.push({
+                type: 'warning',
+                title: 'Título muito curto',
+                message: 'O título deve ter pelo menos 5 caracteres para ser efetivo',
+                icon: '⚠️'
+            });
+        }
+        
+        // 3. Meta charset
+        const charsetMeta = doc.querySelector('meta[charset]');
+        if (!charsetMeta) {
+            score -= 10;
+            errors.push({
+                type: 'error',
+                title: 'Charset não definido',
+                message: 'Adicione <meta charset="UTF-8"> no <head>',
+                icon: '❌'
+            });
+        }
+        
+        // 4. Meta viewport
+        const viewportMeta = doc.querySelector('meta[name="viewport"]');
+        if (!viewportMeta) {
+            score -= 8;
+            warnings.push({
+                type: 'warning',
+                title: 'Viewport ausente',
+                message: 'Adicione <meta name="viewport" content="width=device-width, initial-scale=1.0"> para responsividade',
+                icon: '⚠️'
+            });
+        }
+        
+        // 5. Imagens sem ALT
+        const images = doc.querySelectorAll('img');
+        images.forEach((img, imgIndex) => {
+            if (!img.hasAttribute('alt')) {
+                score -= 6;
+                errors.push({
+                    type: 'error',
+                    title: `Imagem ${imgIndex + 1} sem atributo ALT`,
+                    message: 'Todas as imagens devem ter atributo alt para acessibilidade',
+                    icon: '❌'
+                });
+            }
+        });
+        
+        // 6. H1 count (deve ter exatamente 1)
+        const h1Elements = doc.querySelectorAll('h1');
+        if (h1Elements.length === 0) {
+            score -= 10;
+            warnings.push({
+                type: 'warning',
+                title: 'Nenhum H1 encontrado',
+                message: 'Sua página deve ter exatamente um <h1> como título principal',
+                icon: '⚠️'
+            });
+        } else if (h1Elements.length > 1) {
+            score -= 8;
+            warnings.push({
+                type: 'warning',
+                title: `${h1Elements.length} H1 encontrados`,
+                message: 'Use apenas um <h1> por página. Use <h2> para subtítulos',
+                icon: '⚠️'
+            });
+        }
+        
+        // 7. Hierarquia de headings (h1 → h2 → h3)
+        const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+        let lastLevel = 0;
+        let hierarchyBroken = false;
+        
+        headings.forEach(heading => {
+            const level = parseInt(heading.tagName.substring(1));
+            if (lastLevel > 0 && level > lastLevel + 1) {
+                hierarchyBroken = true;
+            }
+            lastLevel = level;
+        });
+        
+        if (hierarchyBroken) {
+            score -= 8;
+            warnings.push({
+                type: 'warning',
+                title: 'Hierarquia de headings incorreta',
+                message: 'Não pule níveis de heading (ex: h1 → h3). Use h1 → h2 → h3 sequencialmente',
+                icon: '⚠️'
+            });
+        }
+        
+        // 8. Meta description (SEO)
+        const descriptionMeta = doc.querySelector('meta[name="description"]');
+        if (!descriptionMeta) {
+            score -= 6;
+            warnings.push({
+                type: 'warning',
+                title: 'Meta description ausente',
+                message: 'Adicione <meta name="description" content="..."> para melhorar SEO',
+                icon: '⚠️'
+            });
+        }
+        
+        // 9. Lang attribute
+        const htmlElement = doc.querySelector('html');
+        if (!htmlElement || !htmlElement.hasAttribute('lang')) {
+            score -= 5;
+            warnings.push({
+                type: 'warning',
+                title: 'Atributo lang ausente',
+                message: 'Adicione lang="pt-BR" na tag <html> para acessibilidade',
+                icon: '⚠️'
+            });
+        }
+        
+        // 10. Tags semânticas
+        const semanticTags = doc.querySelectorAll('header, nav, main, article, section, aside, footer');
+        const divs = doc.querySelectorAll('div');
+        if (semanticTags.length === 0 && divs.length > 0) {
+            score -= 5;
+            warnings.push({
+                type: 'warning',
+                title: 'Poucas tags semânticas',
+                message: 'Use tags semânticas (header, nav, main, footer) em vez de apenas divs',
+                icon: '⚠️'
+            });
+        }
+        
+        // Consolidar issues (errors primeiro, depois warnings)
+        const issues = [...errors, ...warnings];
+        
+        // Garantir score entre 0 e 100
+        score = Math.max(0, Math.min(100, score));
+        
+        return { 
+            score, 
+            issues,
+            errorCount: errors.length,
+            warningCount: warnings.length
+        };
+    }
+    
+    function displayResults(analysis) {
+        const container = document.getElementById('resultsContainer');
+        const { score, issues, errorCount, warningCount } = analysis;
+        
+        if (!document.getElementById('htmlInput').value.trim()) {
+            container.innerHTML = `
+                <div class="result-item warning">
+                    <span class="result-icon">⚠️</span>
+                    <div class="result-content">
+                        <h3>Editor vazio</h3>
+                        <p>Cole algum código HTML para análise</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        // Cabeçalho com estatísticas
+        let html = `
+            <div class="result-summary ${score >= 90 ? 'success' : score >= 70 ? 'warning' : 'error'}">
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span class="score-value">${score}</span>
+                        <span class="score-max">/100</span>
+                    </div>
+                    <div class="score-info">
+                        <h3>${score >= 90 ? '✅ Excelente!' : score >= 70 ? '⚠️ Bom' : '❌ Precisa melhorar'}</h3>
+                        <div class="issue-counts">
+                            ${errorCount > 0 ? `<span class="error-count">❌ ${errorCount} ${errorCount === 1 ? 'erro' : 'erros'}</span>` : ''}
+                            ${warningCount > 0 ? `<span class="warning-count">⚠️ ${warningCount} ${warningCount === 1 ? 'aviso' : 'avisos'}</span>` : ''}
+                            ${errorCount === 0 && warningCount === 0 ? '<span class="ok-count">✅ Nenhum problema encontrado</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Lista de problemas
+        if (issues.length === 0) {
+            html += `
+                <div class="result-item success">
+                    <span class="result-icon">✅</span>
+                    <div class="result-content">
+                        <h3>HTML Excelente!</h3>
+                        <p>Seu código está bem estruturado e segue as melhores práticas de desenvolvimento web.</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            issues.forEach(issue => {
+                html += `
+                    <div class="result-item ${issue.type}">
+                        <span class="result-icon">${issue.icon}</span>
+                        <div class="result-content">
+                            <h3>${issue.title}</h3>
+                            <p>${issue.message}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        container.innerHTML = html;
     }
     
     function loadExample() {
