@@ -21,7 +21,6 @@ function analyzeHTML() {
 
 function performAnalysis(html) {
     let score = 100;
-    const issues = [];
     const errors = [];
     const warnings = [];
     
@@ -178,8 +177,8 @@ function performAnalysis(html) {
         });
     }
     
-    // Consolidar issues
-    issues.push(...errors, ...warnings);
+    // Consolidar issues (errors primeiro, depois warnings)
+    const issues = [...errors, ...warnings];
     
     // Garantir score entre 0 e 100
     score = Math.max(0, Math.min(100, score));
