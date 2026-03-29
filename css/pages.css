@@ -595,6 +595,8 @@ html.dark .privacy-summary-text span { color: #a7f3d0; }
     width: fit-content;
 }
 .btn-copy:hover { background: #dbeafe; border-color: var(--primary); }
+.btn-copy--link { text-decoration: none; }
+.btn-copy--link:hover { text-decoration: none; }
 html.dark .btn-copy {
     background: rgba(37,99,235,0.15);
     border-color: rgba(37,99,235,0.3);
