@@ -1,9 +1,9 @@
 /**
- * templates.js — Biblioteca de Templates & Boilerplates
- * Gerencia: dados dos templates, modal de seleção e inserção nos editores.
+ * templates.js — Boilerplates
+ * Gerencia: dados dos boilerplates e inserção nos editores.
  */
 
-/* ─── Dados dos templates ──────────────────────────────────────────────────── */
+/* ─── Dados dos boilerplates ───────────────────────────────────────────────── */
 
 var TEMPLATES = [
     {
@@ -88,50 +88,7 @@ var TEMPLATES = [
     }
 ];
 
-/* ─── Modal de seleção de templates ────────────────────────────────────────── */
-
-function openTemplatesModal() {
-    var modal = document.getElementById('templatesModal');
-    if (!modal) return;
-    modal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    renderTemplateCards('all');
-    var closeBtn = document.getElementById('closeTemplatesModal');
-    if (closeBtn) closeBtn.focus();
-}
-
-function closeTemplatesModal() {
-    var modal = document.getElementById('templatesModal');
-    if (!modal) return;
-    modal.hidden = true;
-    document.body.style.overflow = '';
-    var trigger = document.getElementById('btnTemplates');
-    if (trigger) trigger.focus();
-}
-
-function renderTemplateCards(category) {
-    var grid = document.getElementById('templatesGrid');
-    if (!grid) return;
-
-    var filtered = category === 'all'
-        ? TEMPLATES
-        : TEMPLATES.filter(function (t) { return t.category === category; });
-
-    grid.innerHTML = filtered.map(function (tpl) {
-        return '<button class="template-card" data-id="' + tpl.id + '" aria-label="Usar template: ' + tpl.name + '">' +
-            '<span class="template-emoji" aria-hidden="true">' + tpl.emoji + '</span>' +
-            '<span class="template-category">' + tpl.category + '</span>' +
-            '<strong class="template-name">' + tpl.name + '</strong>' +
-            '<span class="template-desc">' + tpl.description + '</span>' +
-            '</button>';
-    }).join('');
-
-    grid.querySelectorAll('.template-card').forEach(function (card) {
-        card.addEventListener('click', function () {
-            applyTemplate(card.dataset.id);
-        });
-    });
-}
+/* ─── Aplicar boilerplate nos editores ──────────────────────────────────────── */
 
 function applyTemplate(id) {
     var tpl = TEMPLATES.find(function (t) { return t.id === id; });
@@ -141,46 +98,35 @@ function applyTemplate(id) {
     if (typeof cmCss !== 'undefined') cmCss.setValue(tpl.css);
     if (typeof cmJs  !== 'undefined') cmJs.setValue(tpl.js);
 
-    closeTemplatesModal();
-
     if (typeof analyzeHTML === 'function') {
         setTimeout(function () { analyzeHTML(); }, 300);
     }
 
     if (typeof showToast === 'function') {
-        showToast('✅ Template "' + tpl.name + '" carregado!');
+        showToast('✅ Boilerplate "' + tpl.name + '" carregado!');
     }
 }
 
-/* ─── Inicialização: filtros e eventos de fechamento ────────────────────────── */
+/* ─── Renderiza a barra de boilerplates na página ───────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', function () {
-    var modal   = document.getElementById('templatesModal');
-    var overlay = document.getElementById('templatesOverlay');
-    var closeBtn = document.getElementById('closeTemplatesModal');
-    var filterBtns = document.querySelectorAll('.template-filter-btn');
+    var bar = document.getElementById('boilerplateBar');
+    if (!bar) return;
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeTemplatesModal);
-    }
+    var activeBtn = null;
 
-    if (overlay) {
-        overlay.addEventListener('click', closeTemplatesModal);
-    }
-
-    if (filterBtns.length) {
-        filterBtns.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                filterBtns.forEach(function (b) { b.classList.remove('active'); });
-                btn.classList.add('active');
-                renderTemplateCards(btn.dataset.category);
-            });
+    TEMPLATES.forEach(function (tpl) {
+        var btn = document.createElement('button');
+        btn.className = 'boilerplate-btn';
+        btn.setAttribute('title', tpl.description);
+        btn.setAttribute('aria-label', 'Carregar boilerplate: ' + tpl.name);
+        btn.innerHTML = '<span aria-hidden="true">' + tpl.emoji + '</span> ' + tpl.name;
+        btn.addEventListener('click', function () {
+            applyTemplate(tpl.id);
+            if (activeBtn) activeBtn.classList.remove('active');
+            btn.classList.add('active');
+            activeBtn = btn;
         });
-    }
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal && !modal.hidden) {
-            closeTemplatesModal();
-        }
+        bar.appendChild(btn);
     });
 });
