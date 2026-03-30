@@ -5,7 +5,7 @@ Disallow: /private/
 Disallow: /temp/
 
 # Sitemaps
-Sitemap: https://joaoclaudiano.github.io/html-teste/sitemap.xml
+Sitemap: https://joaoclaudiano.github.io/codetest/sitemap.xml
 
 
 # Crawl delay para evitar sobrecarga

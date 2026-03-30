@@ -22,7 +22,7 @@ Uma **ferramenta gratuita e open-source** para testar, validar e visualizar cód
 
 ## 🚀 Como Usar
 
-1. Acesse a ferramenta: [html-teste](https://joaoclaudiano.github.io/html-teste/)  
+1. Acesse a ferramenta: [codetest](https://joaoclaudiano.github.io/codetest/)  
 2. Cole ou escreva seu código HTML na área de editor  
 3. Clique em **"Analisar"** para verificar seu código  
 4. Visualize os resultados na seção de análise  
@@ -42,7 +42,7 @@ Uma **ferramenta gratuita e open-source** para testar, validar e visualizar cód
 
 ## 📁 Estrutura do Projeto
 
-html-teste/
+codetest/
 ├── index.html # Página principal
 ├── sobre.html # Sobre o projeto
 ├── termos.html # Termos de uso
