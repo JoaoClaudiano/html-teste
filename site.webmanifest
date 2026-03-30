@@ -2,20 +2,20 @@
     "name": "Testador de HTML Online",
     "short_name": "HTML Tester",
     "description": "Ferramenta gratuita para testar e validar código HTML online",
-    "start_url": "/html-teste/",
+    "start_url": "/codetest/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4361ee",
     "orientation": "portrait",
     "icons": [
         {
-            "src": "/html-teste/icon-192.png",
+            "src": "/codetest/icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/html-teste/icon-512.png",
+            "src": "/codetest/icon-512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
