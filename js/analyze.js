@@ -726,6 +726,8 @@ function pasteCode() {
         }
         const lines = text.split('\n').length;
         showToast('✅ ' + lines + ' linha' + (lines !== 1 ? 's' : '') + ' coladas! Pressione Ctrl+Enter para analisar.');
+        const btnNewTab = document.getElementById('btnOpenNewTab');
+        if (btnNewTab) requestAnimationFrame(() => btnNewTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
     }).catch(function () {
         alert('Não foi possível acessar a área de transferência. Verifique as permissões do navegador.');
     });
