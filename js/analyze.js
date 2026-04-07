@@ -902,7 +902,7 @@ function updateCacheDisplay() {
                 total += (localStorage.getItem(k) || '').length + k.length;
             }
         }
-        var kb = (total * 2 / 1024).toFixed(1); // UTF-16: 2 bytes per char
+        var kb = (total * 2 / 1024).toFixed(1); // UTF-16: approx. 2 bytes per BMP char
         sizeEl.textContent = kb + ' KB';
     } catch (_) {
         sizeEl.textContent = '—';
@@ -1011,7 +1011,7 @@ function _importSeparated(html) {
     });
 
     // Extrair blocos <script> sem src (inline apenas)
-    cleanedHtml = cleanedHtml.replace(/<script(?![^>]*\bsrc\b)[^>]*>([\s\S]*?)<\/script>/gi, function (_, js) {
+    cleanedHtml = cleanedHtml.replace(/<script(?![\s\S]*?\bsrc\b)[\s\S]*?>([\s\S]*?)<\/script>/gi, function (_, js) {
         if (js.trim()) jsBlocks.push(js.trim());
         return '';
     });
