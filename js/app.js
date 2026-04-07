@@ -270,7 +270,7 @@
         if (!panel || !handle) return;
 
         var savedH = parseInt(localStorage.getItem('consoleHeight') || '160', 10);
-        panel.style.height = Math.max(60, savedH) + 'px';
+        panel.style.height = Math.min(Math.max(60, savedH), Math.round(window.innerHeight * 0.6)) + 'px';
 
         var startY, startH;
 
@@ -291,7 +291,7 @@
 
         function onMouseMove(e) { onMove(e.clientY); }
         function onMouseUp()    { onEnd(); }
-        function onTouchMove(e) { e.preventDefault(); onMove(e.touches[0].clientY); }
+        function onTouchMove(e) { if (e.cancelable) e.preventDefault(); onMove(e.touches[0].clientY); }
         function onTouchEnd()   { onEnd(); }
 
         handle.addEventListener('mousedown', function (e) {

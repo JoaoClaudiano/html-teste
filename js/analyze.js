@@ -460,8 +460,9 @@ function performAnalysis(html) {
     }
 
     // 13. Campos de formulário sem label
+    const FORM_FIELD_SELECTOR = 'input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select';
     let unlabeled = 0;
-    doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select')
+    doc.querySelectorAll(FORM_FIELD_SELECTOR)
         .forEach(field => {
             const id  = field.getAttribute('id');
             const ok  = field.hasAttribute('aria-label') ||
@@ -478,7 +479,7 @@ function performAnalysis(html) {
 
     // 14. Campos de formulário sem id ou name
     let missingIdName = 0;
-    doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select')
+    doc.querySelectorAll(FORM_FIELD_SELECTOR)
         .forEach(field => {
             if (!field.getAttribute('id') && !field.getAttribute('name')) missingIdName++;
         });
@@ -490,7 +491,6 @@ function performAnalysis(html) {
     }
 
     // 15. Estilos inline excessivos
-    const deprecated = ['font', 'center', 'marquee', 'blink', 'strike'];
     const inlineCount = doc.querySelectorAll('[style]').length;
     if (inlineCount > 3) {
         score -= 3;
@@ -500,6 +500,7 @@ function performAnalysis(html) {
     }
 
     // 16. Tags obsoletas (HTML5)
+    const deprecated = ['font', 'center', 'marquee', 'blink', 'strike'];
     const found = deprecated.filter(t => doc.querySelector(t));
     if (found.length > 0) {
         score -= 4;
